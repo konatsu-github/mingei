@@ -46,3 +46,10 @@ php artisan db:seed --class TestsTableSeeder
 # コントローラ生成（resource付き）
 php artisan make:controller TestController --resource
 
+
+# --------------------------------------------
+# npm系
+# --------------------------------------------
+
+# tailwindコンパイルウォッチ
+npm run watch
