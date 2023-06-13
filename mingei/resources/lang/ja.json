@@ -1,5 +1,6 @@
 {
     "Name":"お名前",
+    "The email has already been taken.":"すでにメールアドレスが登録されています。",
     "Register":"会員登録",
     "Confirm Password":"パスワード（確認）",
     "Already registered?":"既に登録されている方はこちら",
