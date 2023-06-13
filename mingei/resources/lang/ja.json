@@ -1,3 +1,14 @@
 {
-    "Whoops! Something went wrong.":"おっと！ サーバーで何か問題が発生しました。"
+    "Name":"お名前",
+    "Register":"会員登録",
+    "Confirm Password":"パスワード（確認）",
+    "Already registered?":"既に登録されている方はこちら",
+    "Email":"メールアドレス",
+    "Password":"パスワード",
+    "Remember me":"パスワードを保存する",
+    "Forgot your password?":"パスワードを忘れた方はこちら",
+    "Log in":"ログイン",
+    "Email Password Reset Link":"送信",
+    "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.":"パスワードをお忘れの場合、パスワードリセットリンクをメールで送信します。",
+    "Whoops! Something went wrong.":"サーバーで問題が発生しました。"
 }

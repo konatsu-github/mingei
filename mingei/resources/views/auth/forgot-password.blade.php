@@ -31,6 +31,10 @@
                     {{ __('Email Password Reset Link') }}
                 </x-button>
             </div>
+            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                ログイン画面に戻る
+            </a>
+
         </form>
     </x-auth-card>
 </x-guest-layout>
