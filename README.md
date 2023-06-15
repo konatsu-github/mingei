@@ -25,7 +25,7 @@ http://localhost:8000/
 php artisan make:seeder TestsTableSeeder
 
 # マイグレーションファイルの作成
-php artisan make:migration create_tests_table
+php artisan make:migration create_tests_table --create=tests
 
 # マイグレーション実行
 php artisan migrate
