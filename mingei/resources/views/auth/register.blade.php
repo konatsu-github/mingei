@@ -48,9 +48,6 @@
                 <x-radio01 name="attribute_id" value="1">
                     お笑い芸人
                 </x-radio01>
-                <x-radio01 name="attribute_id" value="2">
-                    主催者
-                </x-radio01>
             </div>
 
 

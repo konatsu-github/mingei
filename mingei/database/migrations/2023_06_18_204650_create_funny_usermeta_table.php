@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGeininUsermetaTable extends Migration
+class CreateFunnyUsermetaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateGeininUsermetaTable extends Migration
      */
     public function up()
     {
-        Schema::create('geinin_usermeta', function (Blueprint $table) {
+        Schema::create('funny_usermeta', function (Blueprint $table) {
             $table->integer('user_id');
-            $table->string('pin_name');
-            $table->string('indies_combi_name');
-            $table->string('truth_combi_name');
+            $table->string('oshi_user_ids');
         });
     }
 
@@ -28,6 +26,6 @@ class CreateGeininUsermetaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('geinin_usermeta');
+        Schema::dropIfExists('funny_usermeta');
     }
 }

@@ -59,19 +59,6 @@
                         </div>
                     </div>
 
-                    <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                        <div class="flex items-center">
-                            <div class="ml-4 text-lg leading-7 font-semibold">ライブ主催者</div>
-                        </div>
-
-                        <div class="ml-4">
-                            <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                ライブの告知や、ライブの結果発表を行ってください。ライブ会場の宣伝や認知拡大にうまく活用してください。
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
 

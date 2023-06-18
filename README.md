@@ -29,6 +29,7 @@ php artisan make:migration create_tests_table --create=tests
 
 # マイグレーション実行
 php artisan migrate
+php artisan migrate:refresh
 
 # modelファイルの作成（テーブル名を単数形で）
 php artisan make:model Test
