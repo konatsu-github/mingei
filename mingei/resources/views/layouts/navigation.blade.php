@@ -8,7 +8,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
-                        <a href="#" class="bg-yellow-400 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Dashboard</a>
+                        <a href="#" class="bg-yellow-400 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">ダッシュボード</a>
                         <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Team</a>
                         <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
                         <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
@@ -80,7 +80,7 @@
     <div class="md:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
-            <a href="#" class="bg-yellow-400 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
+            <a href="#" class="bg-yellow-400 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">ダッシュボード</a>
             <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
             <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
             <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
