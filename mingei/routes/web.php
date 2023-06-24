@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\NotificationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,6 @@ Route::get('/', function () {
 
 Route::resource('/profile', ProfileController::class)->middleware(['auth'])->name('*','profile');
 Route::resource('/setting', SettingController::class)->middleware(['auth'])->name('*','setting');
+Route::resource('/notifications', NotificationsController::class)->middleware(['auth'])->name('*','notifications');
 
 require __DIR__.'/auth.php';
