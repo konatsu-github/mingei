@@ -64,7 +64,7 @@
 
             <div class="mt-8 p-6 flex">
                 @auth
-                <a href="{{ url('/dashboard') }}" class="px-5 py-4 font-semibold flex-1 mr-6 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-orange-400 lg:px-10 rounded-xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300">ダッシュボード</a>
+                <a href="{{ route('dashboard') }}" class="px-5 py-4 font-semibold flex-1 mr-6 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-orange-400 lg:px-10 rounded-xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300">ダッシュボード</a>
                 @else
                 <a href="{{ route('login') }}" class="px-5 py-4 font-semibold flex-1 mr-6 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-orange-400 lg:px-10 rounded-xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300">ログイン</a>
                 <a href="{{ route('register') }}" class="px-5 py-4 font-semibold flex-1 ml-6 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-orange-400 lg:px-10 rounded-xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300">会員登録</a>
