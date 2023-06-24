@@ -16,12 +16,12 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/welcome', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('/profile', ProfileController::class)->middleware(['auth']);
+Route::resource('/profile', ProfileController::class)->middleware(['auth'])->name('*','profile');
 
 require __DIR__.'/auth.php';
