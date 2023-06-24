@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,6 @@ Route::get('/', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('/profile', ProfileController::class)->middleware(['auth'])->name('*','profile');
+Route::resource('/setting', SettingController::class)->middleware(['auth'])->name('*','setting');
 
 require __DIR__.'/auth.php';
