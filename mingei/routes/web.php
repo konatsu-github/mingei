@@ -24,8 +24,16 @@ Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('/profile', ProfileController::class)->middleware(['auth'])->name('*','profile');
-Route::resource('/setting', SettingController::class)->middleware(['auth'])->name('*','setting');
-Route::resource('/notifications', NotificationsController::class)->middleware(['auth'])->name('*','notifications');
+Route::get('/profile', function () {
+    return view('profile');
+})->middleware(['auth'])->name('profile');
+
+Route::get('/setting', function () {
+    return view('setting');
+})->middleware(['auth'])->name('setting');
+
+Route::get('/notifications', function () {
+    return view('notifications');
+})->middleware(['auth'])->name('notifications');
 
 require __DIR__.'/auth.php';
