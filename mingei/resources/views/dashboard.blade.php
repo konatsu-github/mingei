@@ -6,29 +6,36 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 border-b border-gray-200 mb-4">
-                    <h2 class="text-xl font-bold tracking-tight text-gray-900 mb-4">ライブ</h2>
+                <x-content title="ライブ">
                     <div class="mb-4">
-                        <h3>前回のライブの平均評価</h3>
+                        <x-heading2>前回のライブの平均評価</x-heading2>
                         <x-rating rate='4' num='1' />
                     </div>
                     <div class="mb-4">
-                        <h3>今までのライブの平均評価</h3>
-                        <x-rating rate='3.5' num='15' />
+                        <x-heading2>今までのライブの平均評価</x-heading2>
+                        <x-advanced-rating />
                     </div>
-                </div>
+                </x-content>
 
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h2 class="text-xl font-bold tracking-tight text-gray-900 mb-4">ライブ</h2>
+                <x-content title="コミュニティー">
                     <div class="mb-4">
-                        <h3>前回のライブの平均評価</h3>
-                        <x-rating rate='4' num='1' />
+                        <x-heading2>相方募集板</x-heading2>
+                        <x-ita />
                     </div>
                     <div class="mb-4">
-                        <h3>今までのライブの平均評価</h3>
-                        <x-rating rate='3.5' num='15' />
+                        <x-heading2>コント道具貸し借り板</x-heading2>
+                        <x-ita />
                     </div>
-                </div>
+                    <div class="mb-4">
+                        <x-heading2>ライブ代打探し板</x-heading2>
+                        <x-ita />
+                    </div>
+                    <div class="mb-4">
+                        <x-heading2>ネタの種板</x-heading2>
+                        <x-ita />
+                    </div>
+                </x-content>
+
             </div>
         </div>
     </div>

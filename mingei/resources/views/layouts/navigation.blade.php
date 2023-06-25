@@ -9,8 +9,8 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
                         <a href="#" class="bg-yellow-400 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">ダッシュボード</a>
-                        <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Team</a>
-                        <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
+                        <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">ライブ</a>
+                        <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">コミュニティー</a>
                         <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
                         <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reports</a>
                     </div>
@@ -46,8 +46,8 @@
               -->
                         <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">プロフィール</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">設定</a>
                             <div id="user-menu-item-2">
                                 <!-- Authentication -->
                                 <form class="p-0" method="POST" action="{{ route('logout') }}">
@@ -81,8 +81,8 @@
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
             <a href="#" class="bg-yellow-400 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">ダッシュボード</a>
-            <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
-            <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
+            <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">ライブ</a>
+            <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">コミュニティー</a>
             <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
             <a href="#" class="text-gray-300 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Reports</a>
         </div>
@@ -103,8 +103,8 @@
                 </button>
             </div>
             <div class="mt-3 space-y-1 px-2">
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-orange-300 hover:text-white">Your Profile</a>
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-orange-300 hover:text-white">Settings</a>
+                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-orange-300 hover:text-white">プロフィール</a>
+                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-orange-300 hover:text-white">設定</a>
                 <div id="user-menu-item-2">
                     <!-- Authentication -->
                     <form class="p-0" method="POST" action="{{ route('logout') }}">
