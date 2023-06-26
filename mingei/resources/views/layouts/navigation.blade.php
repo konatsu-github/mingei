@@ -7,10 +7,22 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
+                        @if ( Route::currentRouteName() === 'dashboard' )
+                        <x-nav-link href="{{ route('dashboard') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>ダッシュボード</x-nav-link>
+                        @else
+                        <x-nav-link href="{{ route('dashboard') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ダッシュボード</x-nav-link>
+                        @endif
+                        @if ( Route::currentRouteName() === 'live' )
+                        <x-nav-link href="{{ route('live') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>ライブ</x-nav-link>
+                        @else
+                        <x-nav-link href="{{ route('live') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ライブ</x-nav-link>
+                        @endif
+                        @if ( Route::currentRouteName() === 'community' )
+                        <x-nav-link href="{{ route('community') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>コミュニティー</x-nav-link>
+                        @else
+                        <x-nav-link href="{{ route('community') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">コミュニティー</x-nav-link>
+                        @endif
                         <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
-                        <a href="{{ route('dashboard') }}" class="bg-yellow-400 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">ダッシュボード</a>
-                        <a href="{{ route('live') }}" class="text-gray-200 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">ライブ</a>
-                        <a href="{{ route('community') }}" class="text-gray-200 hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium">コミュニティー</a>
                     </div>
                 </div>
             </div>
@@ -78,10 +90,22 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div x-transition.scale.10 x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-            <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
-            <a href="{{ route('dashboard') }}" class="bg-yellow-400 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">ダッシュボード</a>
-            <a href="{{ route('live') }}" class="text-gray-200 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">ライブ</a>
-            <a href="{{ route('community') }}" class="text-gray-200 hover:bg-orange-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium">コミュニティー</a>
+
+            @if ( Route::currentRouteName() === 'dashboard' )
+            <x-nav-link href="{{ route('dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>ダッシュボード</x-nav-link>
+            @else
+            <x-nav-link href="{{ route('dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium">ダッシュボード</x-nav-link>
+            @endif
+            @if ( Route::currentRouteName() === 'live' )
+            <x-nav-link href="{{ route('live') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>ライブ</x-nav-link>
+            @else
+            <x-nav-link href="{{ route('live') }}" class="block rounded-md px-3 py-2 text-base font-medium">ライブ</x-nav-link>
+            @endif
+            @if ( Route::currentRouteName() === 'community' )
+            <x-nav-link href="{{ route('community') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>コミュニティー</x-nav-link>
+            @else
+            <x-nav-link href="{{ route('community') }}" class="block rounded-md px-3 py-2 text-base font-medium">コミュニティー</x-nav-link>
+            @endif
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-5">
