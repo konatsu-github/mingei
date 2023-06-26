@@ -24,6 +24,15 @@ Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/live', function () {
+    return view('live');
+})->middleware(['auth'])->name('live');
+
+Route::get('/community', function () {
+    return view('community');
+})->middleware(['auth'])->name('community');
+
+
 Route::get('/profile', function () {
     return view('profile');
 })->middleware(['auth'])->name('profile');
