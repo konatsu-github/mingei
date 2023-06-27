@@ -16,9 +16,7 @@ class CreateGeininUsermetaTable extends Migration
         Schema::create('geinin_usermeta', function (Blueprint $table) {
             $table->integer('user_id');
             $table->string('pin_name');
-            $table->string('indies_pin_name');
             $table->string('combi_name');
-            $table->string('indies_combi_name');
             $table->string('geireki');
             $table->string('shozoku');
         });
