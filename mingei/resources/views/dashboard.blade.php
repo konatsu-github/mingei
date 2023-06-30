@@ -22,19 +22,15 @@
         <div class="items-center py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <x-heading1>コミュニティー</x-heading1>
             <div class="mb-8">
+                <x-heading2>連絡板</x-heading2>
+                <x-ita />
+            </div>
+            <div class="mb-8">
                 <x-heading2>相方募集板</x-heading2>
                 <x-ita />
             </div>
             <div class="mb-8">
-                <x-heading2>コント道具貸し借り板</x-heading2>
-                <x-ita />
-            </div>
-            <div class="mb-8">
                 <x-heading2>ライブ代打探し板</x-heading2>
-                <x-ita />
-            </div>
-            <div class="mb-8">
-                <x-heading2>ネタの種板</x-heading2>
                 <x-ita />
             </div>
         </div>
