@@ -706,14 +706,14 @@ select {
 .-mt-px {
   margin-top: -1px;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .mb-3 {
   margin-bottom: 0.75rem;
 }
 .mb-4 {
   margin-bottom: 1rem;
-}
-.mb-8 {
-  margin-bottom: 2rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
@@ -1034,6 +1034,9 @@ select {
 }
 .border-b {
   border-bottom-width: 1px;
+}
+.border-b-2 {
+  border-bottom-width: 2px;
 }
 .border-l-4 {
   border-left-width: 4px;

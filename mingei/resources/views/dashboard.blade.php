@@ -21,15 +21,15 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="items-center py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <x-heading1>コミュニティー</x-heading1>
-            <div class="mb-8">
-                <x-heading2>連絡板</x-heading2>
+            <div class="mb-10">
+                <x-heading2>なんでも板</x-heading2>
                 <x-ita />
             </div>
-            <div class="mb-8">
+            <div class="mb-10">
                 <x-heading2>相方募集板</x-heading2>
                 <x-ita />
             </div>
-            <div class="mb-8">
+            <div class="mb-10">
                 <x-heading2>ライブ代打探し板</x-heading2>
                 <x-ita />
             </div>
