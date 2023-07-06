@@ -16,11 +16,11 @@ use App\Http\Controllers\NotificationsController;
 |
 */
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
-
 Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 

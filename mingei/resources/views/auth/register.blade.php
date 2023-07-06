@@ -40,18 +40,6 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
             </div>
 
-            <!-- ユーザー属性選択 -->
-            <div class="mt-4">
-                <x-radio01 name="attribute_id" value="0">
-                    お客さん
-                </x-radio01>
-                <x-radio01 name="attribute_id" value="1">
-                    お笑い芸人
-                </x-radio01>
-            </div>
-
-
-
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
