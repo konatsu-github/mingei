@@ -20,18 +20,17 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/ranking', function () {
+    return view('ranking');
+})->name('ranking');
 
-Route::get('/live', function () {
-    return view('live');
-})->middleware(['auth'])->name('live');
+Route::get('/recommend', function () {
+    return view('recommend');
+})->name('recommend');
 
-Route::get('/community', function () {
-    return view('community');
-})->middleware(['auth'])->name('community');
-
+Route::get('/history', function () {
+    return view('history');
+})->name('history');
 
 Route::get('/profile', function () {
     return view('profile');

@@ -7,20 +7,25 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        @if ( Route::currentRouteName() === 'dashboard' )
-                        <x-nav-link href="{{ route('dashboard') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>ダッシュボード</x-nav-link>
+                        @if ( Route::currentRouteName() === 'home' )
+                        <x-nav-link href="{{ route('home') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>ホーム</x-nav-link>
                         @else
-                        <x-nav-link href="{{ route('dashboard') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ダッシュボード</x-nav-link>
+                        <x-nav-link href="{{ route('home') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ホーム</x-nav-link>
                         @endif
-                        @if ( Route::currentRouteName() === 'live' )
-                        <x-nav-link href="{{ route('live') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>ライブ</x-nav-link>
+                        @if ( Route::currentRouteName() === 'ranking' )
+                        <x-nav-link href="{{ route('ranking') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>ランキング</x-nav-link>
                         @else
-                        <x-nav-link href="{{ route('live') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ライブ</x-nav-link>
+                        <x-nav-link href="{{ route('ranking') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ランキング</x-nav-link>
                         @endif
-                        @if ( Route::currentRouteName() === 'community' )
-                        <x-nav-link href="{{ route('community') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>コミュニティー</x-nav-link>
+                        @if ( Route::currentRouteName() === 'recommend' )
+                        <x-nav-link href="{{ route('recommend') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>おすすめ</x-nav-link>
                         @else
-                        <x-nav-link href="{{ route('community') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">コミュニティー</x-nav-link>
+                        <x-nav-link href="{{ route('recommend') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">おすすめ</x-nav-link>
+                        @endif
+                        @if ( Route::currentRouteName() === 'history' )
+                        <x-nav-link href="{{ route('history') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>履歴</x-nav-link>
+                        @else
+                        <x-nav-link href="{{ route('history') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">履歴</x-nav-link>
                         @endif
                         <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
                     </div>
@@ -28,7 +33,7 @@
             </div>
             <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">
-                    <button onclick="location.href='{{ route('notifications') }}'" type="button" class="relative rounded-full bg-orange-400 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <button onclick="" type="button" class="relative rounded-full bg-orange-400 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span class="sr-only">View notifications</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
@@ -91,20 +96,25 @@
     <div x-transition.scale.10 x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
 
-            @if ( Route::currentRouteName() === 'dashboard' )
-            <x-nav-link href="{{ route('dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>ダッシュボード</x-nav-link>
+            @if ( Route::currentRouteName() === 'home' )
+            <x-nav-link href="{{ route('home') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>ホーム</x-nav-link>
             @else
-            <x-nav-link href="{{ route('dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium">ダッシュボード</x-nav-link>
+            <x-nav-link href="{{ route('home') }}" class="block rounded-md px-3 py-2 text-base font-medium">ホーム</x-nav-link>
             @endif
-            @if ( Route::currentRouteName() === 'live' )
-            <x-nav-link href="{{ route('live') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>ライブ</x-nav-link>
+            @if ( Route::currentRouteName() === 'ranking' )
+            <x-nav-link href="{{ route('ranking') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>ランキング</x-nav-link>
             @else
-            <x-nav-link href="{{ route('live') }}" class="block rounded-md px-3 py-2 text-base font-medium">ライブ</x-nav-link>
+            <x-nav-link href="{{ route('ranking') }}" class="block rounded-md px-3 py-2 text-base font-medium">ランキング</x-nav-link>
             @endif
-            @if ( Route::currentRouteName() === 'community' )
-            <x-nav-link href="{{ route('community') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>コミュニティー</x-nav-link>
+            @if ( Route::currentRouteName() === 'recommend' )
+            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>おすすめ</x-nav-link>
             @else
-            <x-nav-link href="{{ route('community') }}" class="block rounded-md px-3 py-2 text-base font-medium">コミュニティー</x-nav-link>
+            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium">おすすめ</x-nav-link>
+            @endif
+            @if ( Route::currentRouteName() === 'history' )
+            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>履歴</x-nav-link>
+            @else
+            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium">履歴</x-nav-link>
             @endif
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
@@ -116,7 +126,7 @@
                     <div class="text-base font-medium leading-none text-white">{{ Auth::user()->name }}</div>
                     <div class="text-sm font-medium leading-none text-white">{{ Auth::user()->email }}</div>
                 </div>
-                <button onclick="location.href='{{ route('notifications') }}'" class="relative ml-auto flex-shrink-0 rounded-full bg-orange-400 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <button onclick="" class="relative ml-auto flex-shrink-0 rounded-full bg-orange-400 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="sr-only">View notifications</span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
