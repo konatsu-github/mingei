@@ -38,6 +38,7 @@
             <div class="hidden lg:block">
                 @include('components.search-form')
             </div>
+            @auth
             <div class="hidden lg:block">
                 <div class="ml-4 flex items-center md:ml-6">
                     <button onclick="" type="button" class="relative rounded-full bg-orange-400 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -70,8 +71,9 @@
               -->
                         <div x-transition.scale.10 x-show="userMenuOpen" @click.away="userMenuOpen = false" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">プロフィール</a>
-                            <a href="{{ route('setting') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">設定</a>
+                            <a href="{{ route('upload') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">動画アップロード</a>
+                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">プロフィール</a>
+                            <a href="{{ route('setting') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">設定</a>
                             <div id="user-menu-item-2">
                                 <!-- Authentication -->
                                 <form class="p-0" method="POST" action="{{ route('logout') }}">
@@ -83,6 +85,14 @@
                     </div>
                 </div>
             </div>
+            @else
+            <div class="hidden lg:block">
+                <div class="flex items-center">
+                    <x-nav-link href="{{ route('login') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ログイン</x-nav-link>
+                    <x-nav-link href="{{ route('register') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">会員登録</x-nav-link>
+                </div>
+            </div>
+            @endauth
             <div class="-mr-2 flex lg:hidden">
                 <!-- モバイルメニュー検索ボタン -->
                 <button @click="mobileSearchOpen = true" class="mr-4 inline-flex items-center justify-center rounded-md bg-orange-400 p-2 text-white hover:bg-orange-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -131,6 +141,8 @@
             <x-nav-link href="{{ route('history') }}" class="block rounded-md px-3 py-2 text-base font-medium">履歴</x-nav-link>
             @endif
         </div>
+
+        @auth
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-5">
                 <div class="flex-shrink-0">
@@ -149,6 +161,7 @@
                 </button>
             </div>
             <div class="mt-3 space-y-1 px-2">
+                <a href="{{ route('upload') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">動画アップロード</a>
                 <a href="{{ route('profile') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">プロフィール</a>
                 <a href="{{ route('setting') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">設定</a>
                 <div id="user-menu-item-2">
@@ -161,5 +174,14 @@
 
             </div>
         </div>
+        @else
+        <div class="border-t border-gray-700 pb-3 pt-4">
+            <div class="mt-3 space-y-1 px-2">
+                <a href="{{ route('login') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">ログイン</a>
+                <a href="{{ route('register') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">会員登録</a>
+            </div>
+        </div>
+        @endauth
+
     </div>
 </nav>

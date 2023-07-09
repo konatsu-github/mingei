@@ -44,4 +44,12 @@ Route::get('/notifications', function () {
     return view('notifications');
 })->middleware(['auth'])->name('notifications');
 
+Route::get('/upload', function () {
+    return view('upload');
+})->middleware(['auth'])->name('upload');
+
+// Route::get('/notifications', function () {
+//     return view('notifications');
+// })->middleware(['auth'])->name('notifications');
+
 require __DIR__.'/auth.php';
