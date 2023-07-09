@@ -1,11 +1,15 @@
-<nav x-data="{ mobileMenuOpen: false }" class="bg-orange-400">
+<nav x-data="{ mobileMenuOpen: false, mobileSearchOpen:false }" class="bg-orange-400">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between">
+        <div class="py-3" x-transition.scale.10 x-show="mobileSearchOpen" @click.away="mobileSearchOpen = false">
+            @include('components.search-form')
+        </div>
+
+        <div x-show="!mobileSearchOpen" class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <x-application-logo />
                 </div>
-                <div class="hidden md:block">
+                <div class="hidden lg:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         @if ( Route::currentRouteName() === 'home' )
                         <x-nav-link href="{{ route('home') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>ホーム</x-nav-link>
@@ -31,7 +35,10 @@
                     </div>
                 </div>
             </div>
-            <div class="hidden md:block">
+            <div class="hidden lg:block">
+                @include('components.search-form')
+            </div>
+            <div class="hidden lg:block">
                 <div class="ml-4 flex items-center md:ml-6">
                     <button onclick="" type="button" class="relative rounded-full bg-orange-400 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span class="sr-only">View notifications</span>
@@ -49,6 +56,7 @@
                                 <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                             </button>
                         </div>
+
 
                         <!--
                 Dropdown menu, show/hide based on menu state.
@@ -75,7 +83,13 @@
                     </div>
                 </div>
             </div>
-            <div class="-mr-2 flex md:hidden">
+            <div class="-mr-2 flex lg:hidden">
+                <!-- モバイルメニュー検索ボタン -->
+                <button @click="mobileSearchOpen = true" class="mr-4 inline-flex items-center justify-center rounded-md bg-orange-400 p-2 text-white hover:bg-orange-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </button>
                 <!-- Mobile menu button -->
                 <button @click="mobileMenuOpen = true" type="button" class="inline-flex items-center justify-center rounded-md bg-orange-400 p-2 text-white hover:bg-orange-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
@@ -93,7 +107,7 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div x-transition.scale.10 x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden" id="mobile-menu">
+    <div x-transition.scale.10 x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="lg:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
 
             @if ( Route::currentRouteName() === 'home' )
@@ -112,9 +126,9 @@
             <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium">おすすめ</x-nav-link>
             @endif
             @if ( Route::currentRouteName() === 'history' )
-            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>履歴</x-nav-link>
+            <x-nav-link href="{{ route('history') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>履歴</x-nav-link>
             @else
-            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium">履歴</x-nav-link>
+            <x-nav-link href="{{ route('history') }}" class="block rounded-md px-3 py-2 text-base font-medium">履歴</x-nav-link>
             @endif
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
