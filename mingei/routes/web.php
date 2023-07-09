@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/watch', function () {
+    return view('watch');
+})->name('watch');
+
 Route::get('/ranking', function () {
     return view('ranking');
 })->name('ranking');
