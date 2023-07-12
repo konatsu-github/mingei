@@ -36,9 +36,16 @@
             </div>
         </header>
         <main>
-            <div class="mx-auto max-w-7xl py-6 px-6 lg:px-8">
-                {{ $slot }}
-            </div>
+            @php
+            $currentRoute = request()->route()->getName();
+            @endphp
+            @if($currentRoute === 'watch')
+            <div class="mx-auto max-w-7xl pb-6">
+                @else
+                <div class="mx-auto max-w-7xl py-6 px-6 lg:px-8">
+                    @endif
+                    {{ $slot }}
+                </div>
         </main>
     </div>
 </body>
