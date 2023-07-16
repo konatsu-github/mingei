@@ -27,10 +27,12 @@
                         <div class="col-span-full">
                             <div x-show="file === null" class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10" :class="{ 'border-blue-500': isDragging }">
                                 <div class="text-center">
+                                <label for="file-upload">
                                     <svg class="mx-auto h-12 w-12 text-gray-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
                                         <path d="m140-800 74 152h130l-74-152h89l74 152h130l-74-152h89l74 152h130l-74-152h112q24 0 42 18t18 42v520q0 24-18 42t-42 18H140q-24 0-42-18t-18-42v-520q0-24 18-42t42-18Zm0 212v368h680v-368H140Zm0 0v368-368Z" />
                                     </svg>
-                                    <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                    </label>
+                                    <div class="mt-4 text-sm leading-6 text-gray-600">
                                         <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-orange-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 hover:text-indigo-500">
                                             <span>動画を選択</span>
                                             <input id="file-upload" name="file-upload" type="file" class="sr-only" x-on:change="file = $event.target.files[0]">
@@ -59,8 +61,5 @@
 
 
     </div>
-
-
-
 
 </x-app-layout>

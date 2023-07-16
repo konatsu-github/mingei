@@ -54,3 +54,19 @@ php artisan make:controller TestController --resource
 
 # tailwindコンパイルウォッチ
 npm run watch
+
+
+# --------------------------------------------
+# livewire系
+# --------------------------------------------
+
+# livewireの作成
+php artisan make:livewire test
+
+
+# livewireの呼び出し
+@livewireStyles
+<livewire:test>
+@livewireScripts
+
+

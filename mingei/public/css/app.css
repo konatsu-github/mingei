@@ -696,6 +696,9 @@ select {
 .top-0 {
   top: 0px;
 }
+.start-0 {
+  inset-inline-start: 0px;
+}
 .z-0 {
   z-index: 0;
 }
@@ -844,6 +847,9 @@ select {
 }
 .h-full {
   height: 100%;
+}
+.h-32 {
+  height: 8rem;
 }
 .min-h-full {
   min-height: 100%;
@@ -1201,6 +1207,10 @@ select {
 .bg-yellow-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
+}
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 .fill-current {
   fill: currentColor;
