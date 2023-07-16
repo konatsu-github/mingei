@@ -16,7 +16,9 @@
         <div x-show="!mobileSearchOpen" class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <x-application-logo />
+                    <a href="{{ route('home') }}">
+                        <x-application-logo />
+                    </a>
                 </div>
                 <div class="hidden lg:block">
                     <div class="ml-10 flex items-baseline space-x-4">

@@ -30,7 +30,7 @@
             <div x-data="{ funny: 0 }" class="flex items-center mt-8">
                 <input x-bind:value="funny" type="hidden" name="funny">
 
-                <button @click="funny == 1 ? funny = 0 : funny = 1" :class="{ 'bg-red-500 text-white': funny == 1 }" class="mr-8 flex items-center outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 text-center">
+                <button @click="funny == 1 ? funny = 0 : funny = 1" :class="{ 'bg-red-500 text-white': funny == 1 }" class="mr-6 flex items-center outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 text-center">
                     <svg :class="funny == 1 ? 'fill-white' : ''" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                         <path d="M480-261q66 0 121.5-35.5T682-393H278q26 61 81 96.5T480-261ZM302-533l45-45 45 45 36-36-81-81-81 81 36 36Zm267 0 45-45 45 45 36-36-81-81-81 81 36 36ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 340q142.375 0 241.188-98.812Q820-337.625 820-480t-98.812-241.188Q622.375-820 480-820t-241.188 98.812Q140-622.375 140-480t98.812 241.188Q337.625-140 480-140Z" />
                     </svg>
@@ -45,12 +45,12 @@
             </div>
 
             <div class="flex mt-6">
-                <div x-data="{ follow : false }" class="flex flex-wrap">
-                    <button @click="follow == true ? follow = false : follow = true" :class="{ 'bg-orange-400 text-white': follow }"  class="flex items-center space-x-1 p-2 whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
+                <div x-data="{ follow : false, keep : false }" class="flex flex-wrap">
+                    <button @click="follow == true ? follow = false : follow = true" :class="{ 'bg-orange-400 text-white': follow }" class="flex items-center space-x-1 p-2 whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
                         <svg :class="follow ? 'fill-white' : ''" class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                             <path d="M730-400v-130H600v-60h130v-130h60v130h130v60H790v130h-60Zm-370-81q-66 0-108-42t-42-108q0-66 42-108t108-42q66 0 108 42t42 108q0 66-42 108t-108 42ZM40-160v-94q0-35 17.5-63.5T108-360q75-33 133.338-46.5 58.339-13.5 118.5-13.5Q420-420 478-406.5 536-393 611-360q33 15 51 43t18 63v94H40Zm60-60h520v-34q0-16-9-30.5T587-306q-71-33-120-43.5T360-360q-58 0-107.5 10.5T132-306q-15 7-23.5 21.5T100-254v34Zm260-321q39 0 64.5-25.5T450-631q0-39-25.5-64.5T360-721q-39 0-64.5 25.5T270-631q0 39 25.5 64.5T360-541Zm0-90Zm0 411Z" />
                         </svg>
-                        <span>フォロー</span>
+                        <span x-text="follow ? 'フォロー中' : 'フォロー'"></span>
                     </button>
                     <button class="flex items-center space-x-1 p-2 bg-white whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -58,11 +58,11 @@
                         </svg>
                         <span>共有</span>
                     </button>
-                    <button class="flex items-center space-x-1 p-2 bg-white whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
-                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <button @click="keep == true ? keep = false : keep = true" :class="{ 'bg-orange-400 text-white': keep }" class="flex items-center space-x-1 p-2 whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
+                        <svg :class="keep ? 'fill-white' : ''" class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M19 19H5V5h7V3H5C3.89 3 3 3.89 3 5v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2v-7h-2v7zm2-10h-7V3l9 9zm-9 2V9h-2v4H8l4 4 4-4h-3z" />
                         </svg>
-                        <span>保存</span>
+                        <span x-text="keep ? '保存済' : '保存'"></span>
                     </button>
                     <button class="flex items-center space-x-1 p-2 bg-white whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
