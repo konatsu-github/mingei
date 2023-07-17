@@ -14,7 +14,7 @@ class UploadVideo extends Component
     
     public function save()
     {
-        $path = $this->video->store('videos', 'public');
+        $path = $this->video->store('videos', 's3');
 
         // ファイルの保存に成功した場合は、メッセージを表示します
         if ($path) {
