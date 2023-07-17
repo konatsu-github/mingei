@@ -12,7 +12,8 @@
   }
   ```
 -->
-   <div x-data="{ file: null }">
+<div>
+<div x-data="{ file: null }">
        <form wire:submit.prevent="save" enctype="multipart/form-data">
            @csrf
            <div>{{ session('message') }}</div>
@@ -66,4 +67,6 @@
            this.file = null;
        }
    </script>
+</div>
+   
 
