@@ -10,18 +10,38 @@ class UploadVideo extends Component
     use WithFileUploads;
 
     public $video;
+    public $loading = false;
 
-    
-    public function save()
+    public function upload()
     {
+        $this->loading = true;
+    
         $path = $this->video->store('videos', 's3');
-
-        // ファイルの保存に成功した場合は、メッセージを表示します
+    
         if ($path) {
+            $this->dispatchBrowserEvent('resetFileInput');
             session()->flash('message', 'ファイルがアップロードされました。');
         } else {
             session()->flash('message', 'ファイルのアップロードに失敗しました。');
         }
+    
+        $this->loading = false;
+    }
+
+    public function save()
+    {
+        $this->loading = true;
+    
+        $path = $this->video->store('videos', 's3');
+    
+        if ($path) {
+            $this->dispatchBrowserEvent('resetFileInput');
+            session()->flash('message', 'ファイルがアップロードされました。');
+        } else {
+            session()->flash('message', 'ファイルのアップロードに失敗しました。');
+        }
+    
+        $this->loading = false;
     }
 
     public function render()
