@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\NotificationsController;
-
+use App\Http\Controllers\VideoUploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +52,7 @@ Route::get('/upload', function () {
     return view('upload');
 })->middleware(['auth'])->name('upload');
 
+Route::post('/upload', [VideoUploadController::class, 'store'])->middleware(['auth'])->name('video.upload');
 // Route::get('/notifications', function () {
 //     return view('notifications');
 // })->middleware(['auth'])->name('notifications');
