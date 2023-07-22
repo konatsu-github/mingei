@@ -25,8 +25,6 @@
                     <div class="space-y-12">
                         <div class="border-b border-gray-900/10 pb-12">
                             <h2 class="text-base font-semibold leading-7 text-gray-900">あなたのネタ動画をアップロードしてください</h2>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">※動画の長さは3分までです。</p>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">※動画の容量は150MBまでです。</p>
 
                             <div class="col-span-full">
                                 <div x-show="file === null" class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
