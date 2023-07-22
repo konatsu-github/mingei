@@ -17,17 +17,37 @@
   }
   ```
 -->
-        <x-alert/>
+        <x-alert />
         <div>
-            <div x-data="{ file: null }">
+            <div x-data="{ videoFile: null }">
                 <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="space-y-12">
                         <div class="border-b border-gray-900/10 pb-12">
-                            <h2 class="text-base font-semibold leading-7 text-gray-900">あなたのネタ動画をアップロードしてください</h2>
+                            <h2 class="text-base font-semibold leading-7 text-gray-900">基本情報</h2>
+                            <p class="mt-1 text-sm leading-6 text-gray-600">この情報は公開されません。</p>
+
+                            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div class="sm:col-span-4">
+                                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">動画のタイトル</label>
+                                    <div class="mt-2">
+                                        <input id="name" name="name" type="text" autocomplete="name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6">
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-4">
+                                    <label for="description" class="block text-sm font-medium leading-6 text-gray-900">動画の説明文</label>
+                                    <div class="mt-2">
+                                        <textarea name="description" id="description" rows="5" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <h2 class="mt-10 text-base font-semibold leading-7 text-gray-900">あなたのネタ動画をアップロードしてください</h2>
 
                             <div class="col-span-full">
-                                <div x-show="file === null" class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                                <div x-show="videoFile === null" class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                     <div class="text-center">
                                         <label for="file-upload">
                                             <svg class="mx-auto h-12 w-12 text-gray-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
@@ -37,16 +57,16 @@
                                         <div class="mt-4 text-sm leading-6 text-gray-600">
                                             <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-orange-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 hover:text-indigo-500">
                                                 <span>動画を選択</span>
-                                                <input id="file-upload" name="file-upload" type="file" class="sr-only" x-on:change="file = $event.target.files[0]">
+                                                <input id="file-upload" name="file-upload" type="file" class="sr-only" x-on:change="videoFile = $event.target.files[0]">
                                             </label>
                                         </div>
                                         <p class="text-xs leading-5 text-gray-600">MP4, WebM, MOV, AVI, MKV, FLV, 3GP, WMV, の動画形式をサポートしています。</p>
                                     </div>
                                 </div>
 
-                                <div x-show="file !== null">
+                                <div x-show="videoFile !== null">
                                     <h3 class="mt-4 text-base font-semibold leading-7 text-gray-900">プレビュー</h3>
-                                    <video class="mt-2 w-full" controls x-bind:src="file !== null ? URL.createObjectURL(file) : null">
+                                    <video class="mt-2 w-full" controls x-bind:src="videoFile !== null ? URL.createObjectURL(videoFile) : null">
                                         ブラウザが<code>&lt;video&gt;</code>要素をサポートしていないか、JavaScriptが無効になっています。
                                     </video>
                                 </div>
