@@ -18,7 +18,8 @@ class CreateVideosTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('description');
-            $table->string('file_path');
+            $table->string('image_file_path');
+            $table->string('video_file_path');
             // その他の動画情報を追加する場合はここにカラムを追加します
             $table->timestamps();
 

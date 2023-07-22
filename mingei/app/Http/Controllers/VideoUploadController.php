@@ -17,10 +17,6 @@ class VideoUploadController extends Controller
 
         $temporaryUrl = Storage::disk('s3')->temporaryUrl($filePath, $expires);
 
-        // 期限付きURLを使って何かしらの操作を行う場合
-        // 例えば、ビューに表示する場合など
-        // return view('video_player', ['temporaryUrl' => $temporaryUrl]);
-
         return $temporaryUrl;
     }
 
@@ -31,18 +27,27 @@ class VideoUploadController extends Controller
 
 
         // 例えば、動画ファイルを保存する場合は以下のようにします
-        if ($request->hasFile('file-upload')) {
-            $video = $request->file('file-upload');
+        if ($request->hasFile('video-upload')) {
 
-            $filePath = $video->store('videos', 's3');
+            // 動画アップロード
+            $video = $request->file('video-upload');
+            $image = $request->file('image-upload');
+
+            $videoFilePath = $video->store('videos', 's3');
+            $imageFilePath = $image->store('images', 's3');
+
+            // フォームの値取得
+            $inputTitle = $request->input('title');
+            $textareaDescription = $request->input('description');
 
 
             // 保存したファイルのパスをデータベースに保存します
             $videoModel = new Video();
             $videoModel->user_id = $userId;
-            $videoModel->title = 'test';
-            $videoModel->description = 'test';
-            $videoModel->file_path = $filePath;
+            $videoModel->title = $inputTitle;
+            $videoModel->description = $textareaDescription;
+            $videoModel->video_file_path = $videoFilePath;
+            $videoModel->image_file_path = $imageFilePath;
             $videoModel->save();
 
             // $temporaryUrl = $this->getTemporaryUrl($path);
