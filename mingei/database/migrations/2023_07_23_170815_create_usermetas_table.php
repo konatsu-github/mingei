@@ -16,7 +16,7 @@ class CreateUsermetasTable extends Migration
         Schema::create('usermetas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('avatar')->default('default_avatar.jpg');
+            $table->string('avatar')->default('images/common/default_avatar.png');
             $table->string('nickname')->default('名無しさん');
             $table->text('followers')->nullable()->default(null);
             $table->text('follows')->nullable()->default(null);

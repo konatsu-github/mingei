@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        
+        // 共通のアバター画像URLをViewに渡す
+        View::composer('*', function ($view) {
+            $user = Auth::user();
+            $avatarUrl = $user ? $user->userMeta->avatar : null;
+            $view->with('avatarUrl', $avatarUrl);
+        });
     }
 }

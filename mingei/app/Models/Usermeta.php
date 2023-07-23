@@ -12,4 +12,5 @@ class Usermeta extends Model
     protected $fillable = [
         'user_id', // 他のカラムを必要に応じて追加
     ];
+
 }

@@ -28,9 +28,9 @@ Route::get('/ranking', function () {
     return view('ranking');
 })->name('ranking');
 
-Route::get('/recommend', function () {
-    return view('recommend');
-})->name('recommend');
+// Route::get('/recommend', function () {
+//     return view('recommend');
+// })->name('recommend');
 
 Route::get('/history', function () {
     return view('history');

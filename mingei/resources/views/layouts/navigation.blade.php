@@ -32,11 +32,6 @@
                         @else
                         <x-nav-link href="{{ route('ranking') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ランキング</x-nav-link>
                         @endif
-                        @if ( Route::currentRouteName() === 'recommend' )
-                        <x-nav-link href="{{ route('recommend') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>おすすめ</x-nav-link>
-                        @else
-                        <x-nav-link href="{{ route('recommend') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">おすすめ</x-nav-link>
-                        @endif
                         @if ( Route::currentRouteName() === 'history' )
                         <x-nav-link href="{{ route('history') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>履歴</x-nav-link>
                         @else
@@ -65,7 +60,7 @@
                         <div>
                             <button @click="userMenuOpen = true" type="button" class="flex max-w-xs items-center rounded-full bg-orange-400 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                <img class="h-8 w-8 rounded-full" src="{{$avatarUrl}}" alt="">
                             </button>
                         </div>
 
@@ -141,11 +136,6 @@
             @else
             <x-nav-link href="{{ route('ranking') }}" class="block rounded-md px-3 py-2 text-base font-medium">ランキング</x-nav-link>
             @endif
-            @if ( Route::currentRouteName() === 'recommend' )
-            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>おすすめ</x-nav-link>
-            @else
-            <x-nav-link href="{{ route('recommend') }}" class="block rounded-md px-3 py-2 text-base font-medium">おすすめ</x-nav-link>
-            @endif
             @if ( Route::currentRouteName() === 'history' )
             <x-nav-link href="{{ route('history') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>履歴</x-nav-link>
             @else
@@ -196,3 +186,4 @@
 
     </div>
 </nav>
+

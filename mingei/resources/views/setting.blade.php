@@ -25,10 +25,10 @@
                     <p class="mt-1 text-sm leading-6 text-gray-600">この情報は公開されます。共有する内容には注意してください。</p>
                     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-4">
-                            <label for="pin_name" class="block text-sm font-medium leading-6 text-gray-900">ニックネーム</label>
+                            <label for="nickname" class="block text-sm font-medium leading-6 text-gray-900">ニックネーム</label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-orange-400 sm:max-w-md">
-                                    <input type="text" name="pin_name" id="pin_name" autocomplete="pin_name" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="サイト内で表示されるあなたのニックネームを入力してください">
+                                    <input type="text" name="nickname" id="nickname" autocomplete="nickname" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="サイト内で表示されるあなたのニックネームを入力してください">
                                 </div>
                             </div>
                         </div>
