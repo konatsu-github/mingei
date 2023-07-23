@@ -19,7 +19,7 @@
 -->
         <x-alert />
         <div>
-            <div x-data="{ videoFile: null, imageFile : null }">
+            <div x-data="{ videoFile: null, imageFile : null, isUploading: false }">
                 <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="space-y-12">
@@ -99,17 +99,27 @@
                             </div>
                         </div>
 
+                        <div class="progress mt-2" style="display:none;">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                        </div>
+
                         <div class="mt-6 flex items-center justify-end gap-x-6">
                             <button @click="resetInput" type="button" class="text-sm font-semibold leading-6 text-gray-900">キャンセル</button>
-                            <button type="submit" class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400">アップロード</button>
+                            <button @click="isUploading = true" type="submit" class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400">アップロード</button>
                         </div>
                     </div>
 
                 </form>
+
+                <div x-show="isUploading">
+                    <!-- ローディング画面の内容をここに表示します -->
+                    <x-loading>アップロード中やねん...</x-loading>
+                </div>
             </div>
 
 
             <script>
+                /** キャンセルボタンクリック時 */
                 function resetInput() {
                     const videoInput = document.getElementById('video-upload');
                     const imageInput = document.getElementById('image-upload');
@@ -127,6 +137,13 @@
                 }
             </script>
         </div>
+
+
+
+
+
+
+
     </div>
 
 
