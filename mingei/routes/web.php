@@ -40,9 +40,8 @@ Route::get('/profile', function () {
     return view('profile');
 })->middleware(['auth'])->name('profile');
 
-Route::get('/setting', function () {
-    return view('setting');
-})->middleware(['auth'])->name('setting');
+Route::get('/settings', [ProfileController::class, 'showProfileSettings'])->middleware(['auth'])->name('view.settings');
+Route::post('/settings', [ProfileController::class, 'updateProfileSettings'])->middleware(['auth'])->name('update.settings');
 
 Route::get('/notifications', function () {
     return view('notifications');

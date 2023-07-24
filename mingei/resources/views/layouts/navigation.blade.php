@@ -79,7 +79,7 @@
                             <!-- Active: "bg-gray-100", Not Active: "" -->
                             <a href="{{ route('upload') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">動画アップロード</a>
                             <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">プロフィール</a>
-                            <a href="{{ route('setting') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">設定</a>
+                            <a href="{{ route('view.settings') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">設定</a>
                             <div id="user-menu-item-2">
                                 <!-- Authentication -->
                                 <form class="p-0" method="POST" action="{{ route('logout') }}">
@@ -147,7 +147,7 @@
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-5">
                 <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="h-10 w-10 rounded-full" src="{{$avatarUrl}}" alt="">
                 </div>
                 <div class="ml-3">
                     <div class="text-base font-medium leading-none text-white">{{ Auth::user()->name }}</div>
@@ -164,7 +164,7 @@
             <div class="mt-3 space-y-1 px-2">
                 <a href="{{ route('upload') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">動画アップロード</a>
                 <a href="{{ route('profile') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">プロフィール</a>
-                <a href="{{ route('setting') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">設定</a>
+                <a href="{{ route('view.settings') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">設定</a>
                 <div id="user-menu-item-2">
                     <!-- Authentication -->
                     <form class="p-0" method="POST" action="{{ route('logout') }}">

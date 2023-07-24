@@ -18,7 +18,9 @@
   }
   ```
 -->
-        <form>
+        <x-alert />
+        <form action="{{ route('update.settings') }}" x-data="{ imageFile : null }" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">
                     <h2 class="text-base font-semibold leading-7 text-gray-900">一般公開情報</h2>
@@ -28,17 +30,16 @@
                             <label for="nickname" class="block text-sm font-medium leading-6 text-gray-900">ニックネーム</label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-orange-400 sm:max-w-md">
-                                    <input type="text" name="nickname" id="nickname" autocomplete="nickname" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="サイト内で表示されるあなたのニックネームを入力してください">
+                                    <input type="text" name="nickname" value="{{ $userMeta->nickname }}" id="nickname" autocomplete="nickname" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="サイト内で表示されるあなたのニックネームを入力してください">
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-full">
                             <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">アバター画像</label>
                             <div class="mt-2 flex items-center gap-x-3">
-                                <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
-                                </svg>
-                                <button type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">変更する</button>
+                                <img class="h-10 w-10 rounded-full" x-bind:src="imageFile !== null ? URL.createObjectURL(imageFile) : '{{$avatarUrl}}'">
+                                <input id="image-upload" name="image-upload" type="file" class="hidden sr-only" x-on:change="imageFile = $event.target.files[0]">
+                                <label for="image-upload" class="cursor-pointer rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">変更する</label>
                             </div>
                         </div>
                     </div>
@@ -54,7 +55,7 @@
                             <label for="pin_name" class="block text-sm font-medium leading-6 text-gray-900">芸名</label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-orange-400 sm:max-w-md">
-                                    <input type="text" name="pin_name" id="pin_name" autocomplete="pin_name" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="あなたの芸名を入力してください">
+                                    <input type="text" name="pin_name" id="pin_name" value="{{ $userMeta->pinname }}" autocomplete="pin_name" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="あなたの芸名を入力してください">
                                 </div>
                             </div>
                         </div>
@@ -63,7 +64,7 @@
                             <label for="combi_name" class="block text-sm font-medium leading-6 text-gray-900">コンビ名</label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-orange-400 sm:max-w-md">
-                                    <input type="text" name="combi_name" id="combi_name" autocomplete="combi_name" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="コンビやトリオなどのときのコンビ名を入力してください">
+                                    <input type="text" name="combi_name" id="combi_name" value="{{ $userMeta->combiname }}" autocomplete="combi_name" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="コンビやトリオなどのときのコンビ名を入力してください">
                                 </div>
                             </div>
                         </div>
@@ -96,14 +97,14 @@
                         <div class="sm:col-span-4">
                             <label for="name" class="block text-sm font-medium leading-6 text-gray-900">お名前</label>
                             <div class="mt-2">
-                                <input id="name" name="name" type="text" autocomplete="name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6">
+                                <input id="name" name="name" type="text" value="{{ $user->name }}" autocomplete="name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6">
                             </div>
                         </div>
 
                         <div class="sm:col-span-4">
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">メールアドレス</label>
                             <div class="mt-2">
-                                <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6">
+                                <input id="email" name="email" type="email" value="{{ $user->email }}" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-400 sm:text-sm sm:leading-6">
                             </div>
                         </div>
 
@@ -170,10 +171,21 @@
             </div> -->
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">キャンセル</button>
+                    <button @click="resetInput" type="button" class="text-sm font-semibold leading-6 text-gray-900">キャンセル</button>
                     <button type="submit" class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400">保存</button>
                 </div>
         </form>
 
     </div>
+
+    <script>
+        /** キャンセルボタンクリック時 */
+        function resetInput() {
+            const imageInput = document.getElementById('image-upload');
+
+            imageInput.value = '';
+
+            this.imageFile = null;
+        }
+    </script>
 </x-app-layout>
