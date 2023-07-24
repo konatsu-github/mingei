@@ -34,22 +34,22 @@ class ProfileController extends Controller
             'email' => 'required|email|max:255',
         ]);
 
-        
+
         // 他の入力項目があれば、同様に保存する
         $image = $request->file('image-upload');
         $extension = $image->getClientOriginalExtension(); // 画像の拡張子を取得
-        
-        // ハッシュ化したファイル名を生成
+
+        // ハッシュ関数を使用して一意のファイル名を生成
         $hashedFileName = md5(uniqid()) . '.' . $extension;
-        
-        // 画像を指定したパスに保存
-        $imageFilePath = $image->storeAs('images', $hashedFileName, 'public');
+
+        // ハッシュ化したファイル名と拡張子を組み合わせて、画像を保存
+        $imageFilePath = $image->storeAs('avatars', $hashedFileName, 'public');
 
         // 入力された値をユーザーのメタデータに保存
         $user->userMeta->nickname = $request->nickname;
         $user->userMeta->pinname = $request->pin_name;
         $user->userMeta->combiname = $request->combi_name;
-        $user->userMeta->avatar = $imageFilePath;
+        $user->userMeta->avatar =  'storage/' . $imageFilePath;
 
         // ユーザーのメタデータを保存
         $user->userMeta->save();
