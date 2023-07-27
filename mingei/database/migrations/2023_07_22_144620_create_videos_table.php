@@ -20,6 +20,7 @@ class CreateVideosTable extends Migration
             $table->text('description');
             $table->text('image_file_path');
             $table->text('video_file_path');
+            $table->integer('view_count')->default(0);
             $table->integer('good_count')->default(0);
             $table->integer('bad_count')->default(0);
             $table->integer('video_save_count')->default(0);

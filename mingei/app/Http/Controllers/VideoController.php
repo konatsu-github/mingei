@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Video; // Videoモデルを使用するためにインポート
 use Illuminate\Support\Facades\Auth; // Authファサードを使用するためにインポート
+use Illuminate\Support\Facades\Storage;
 
-class VideoUploadController extends Controller
+class VideoController extends Controller
 {
-
     public function getTemporaryUrl($filePath)
     {
         // S3のファイルに期限付きURLを取得する
@@ -18,6 +17,29 @@ class VideoUploadController extends Controller
         $temporaryUrl = Storage::disk('s3')->temporaryUrl($filePath, $expires);
 
         return $temporaryUrl;
+    }
+
+    public function index()
+    {
+        // Videoモデルからすべての動画データを取得します
+        $videos = Video::all();
+
+        return view('home', compact('videos'));
+    }
+
+    public function show(Request $request, $videoId)
+    {
+        // VideoモデルからユーザーIDと指定された'id'に紐づく動画データを取得します
+        $video = Video::find($videoId);
+
+        if (!$video) {
+            // 動画が存在しない場合は適切な処理を行ってください（例：エラーメッセージの表示など）
+            abort(404); // 404エラーを返す例
+        }
+
+        $videoUrl = $this->getTemporaryUrl($video->video_file_path);
+
+        return view('watch', compact('videoUrl', 'video'));
     }
 
     public function store(Request $request)

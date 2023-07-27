@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\NotificationsController;
-use App\Http\Controllers\VideoUploadController;
+use App\Http\Controllers\VideoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,13 +16,8 @@ use App\Http\Controllers\VideoUploadController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
 
-Route::get('/watch', function () {
-    return view('watch');
-})->name('watch');
+
 
 Route::get('/ranking', function () {
     return view('ranking');
@@ -51,7 +46,11 @@ Route::get('/upload', function () {
     return view('upload');
 })->middleware(['auth'])->name('upload');
 
-Route::post('/upload', [VideoUploadController::class, 'store'])->middleware(['auth'])->name('video.upload');
+Route::get('/',  [VideoController::class, 'index'])->name('home');
+
+Route::get('/watch/{videoId}', [VideoController::class, 'show'])->name('watch');
+
+Route::post('/upload', [VideoController::class, 'store'])->middleware(['auth'])->name('video.upload');
 // Route::get('/notifications', function () {
 //     return view('notifications');
 // })->middleware(['auth'])->name('notifications');
