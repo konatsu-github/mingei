@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Usermeta;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,11 +28,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        
+
         // 共通のアバター画像URLをViewに渡す
         View::composer('*', function ($view) {
             $user = Auth::user();
-            $avatarUrl = $user ? $user->userMeta->avatar : null;
+            $avatarUrl = null; // 初期値としてnullを設定
+            if ($user) {
+                $usermeta = Usermeta::where('user_id', $user->id)->first();
+                if ($usermeta) {
+                    $avatarUrl = $usermeta->avatar;
+                }
+            }
             $view->with('avatarUrl', $avatarUrl);
         });
     }
