@@ -24,7 +24,17 @@ class VideoController extends Controller
         // Videoモデルからすべての動画データを取得します
         $videos = Video::all();
 
-        return view('home', compact('videos'));
+        // 連想配列にサムネイルのURLを追加する
+        $videosWithThumbnail = [];
+        foreach ($videos as $video) {
+            $thumbnailUrl = $this->getTemporaryUrl($video->image_file_path);
+            $videosWithThumbnail[] = [
+                'video' => $video,
+                'thumbnailUrl' => $thumbnailUrl,
+            ];
+        }
+
+        return view('home', compact('videosWithThumbnail'));
     }
 
     public function show(Request $request, $videoId)
@@ -75,7 +85,6 @@ class VideoController extends Controller
             // $temporaryUrl = $this->getTemporaryUrl($path);
 
             // dd($temporaryUrl);
-
 
             // 成功メッセージなどの処理を行い、リダイレクトするなどの操作を行います
             return redirect()->route('upload')->with('message', '動画がアップロードされました！')->with('messageType', 'success');

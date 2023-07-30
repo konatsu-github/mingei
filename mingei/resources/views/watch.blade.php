@@ -6,7 +6,7 @@
     <section>
         <div class="relative">
             <video controls class="w-full">
-                <source src="{{$videoUrl}}" type="video/mp4">
+                <source src="{!! $videoUrl !!}" type="video/mp4">
             </video>
         </div>
         <div class="mx-auto max-w-7xl py-6 px-6 lg:px-8">
