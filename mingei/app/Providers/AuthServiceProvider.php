@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($user) {
                 $usermeta = Usermeta::where('user_id', $user->id)->first();
                 if ($usermeta) {
-                    $avatarUrl = $usermeta->avatar;
+                    $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
                 }
             }
             $view->with('avatarUrl', $avatarUrl);
