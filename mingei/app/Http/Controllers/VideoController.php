@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Video; // Videoモデルを使用するためにインポート
 use Illuminate\Support\Facades\Auth; // Authファサードを使用するためにインポート
 use Illuminate\Support\Facades\Storage;
+use App\Models\Usermeta;
 
 class VideoController extends Controller
 {
@@ -16,16 +17,21 @@ class VideoController extends Controller
         $videos = Video::all();
 
         // 連想配列にサムネイルのURLを追加する
-        $videosWithThumbnail = [];
+        $videosItems = [];
         foreach ($videos as $video) {
+            $usermeta = Usermeta::where('user_id', $video->user_id)->first();
+            $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
             $thumbnailUrl = GetS3TemporaryUrl($video->image_file_path);
-            $videosWithThumbnail[] = [
+            $videosItems[] = [
                 'video' => $video,
+                'usermeta' => $usermeta,
+                'avatarUrl' => $avatarUrl,
                 'thumbnailUrl' => $thumbnailUrl,
             ];
         }
 
-        return view('home', compact('videosWithThumbnail'));
+
+        return view('home', compact('videosItems'));
     }
 
     public function show(Request $request, $videoId)

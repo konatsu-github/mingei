@@ -63,7 +63,6 @@ class ProfileController extends Controller
         $usermeta->nickname = $request->nickname;
         $usermeta->pinname = $request->pin_name;
         $usermeta->combiname = $request->combi_name;
-        $usermeta->avatar =  $imageFilePath;
         $usermeta->save();
 
         // 基本情報の更新
