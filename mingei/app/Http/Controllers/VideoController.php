@@ -9,15 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
-    public function getTemporaryUrl($filePath)
-    {
-        // S3のファイルに期限付きURLを取得する
-        $expires = now()->addMinutes(env('AWS_S3_TMP_TIME'));
-
-        $temporaryUrl = Storage::disk('s3')->temporaryUrl($filePath, $expires);
-
-        return $temporaryUrl;
-    }
 
     public function index()
     {
@@ -27,7 +18,7 @@ class VideoController extends Controller
         // 連想配列にサムネイルのURLを追加する
         $videosWithThumbnail = [];
         foreach ($videos as $video) {
-            $thumbnailUrl = $this->getTemporaryUrl($video->image_file_path);
+            $thumbnailUrl = GetS3TemporaryUrl($video->image_file_path);
             $videosWithThumbnail[] = [
                 'video' => $video,
                 'thumbnailUrl' => $thumbnailUrl,
@@ -47,7 +38,7 @@ class VideoController extends Controller
             abort(404); // 404エラーを返す例
         }
 
-        $videoUrl = $this->getTemporaryUrl($video->video_file_path);
+        $videoUrl = GetS3TemporaryUrl($video->video_file_path);
 
         return view('watch', compact('videoUrl', 'video'));
     }

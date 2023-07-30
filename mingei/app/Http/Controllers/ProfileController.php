@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User; // ユーザーモデルへの参照を追加
+use App\Models\Usermeta;
 
 class ProfileController extends Controller
 {
@@ -12,10 +13,16 @@ class ProfileController extends Controller
         // ログインしているユーザーの情報を取得
         $user = auth()->user();
 
+        $usermeta = null; // 初期値としてnullを設定
+        
+        if ($user) {
+            $usermeta = Usermeta::where('user_id', $user->id)->first();
+        }
+
         // 取得したユーザー情報をプロフィール設定ページのビューに渡す
         return view('settings', [
             'user' => $user,
-            'userMeta' => $user->userMeta,
+            'userMeta' => $usermeta,
         ]);
     }
 
