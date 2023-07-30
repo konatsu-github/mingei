@@ -18,10 +18,10 @@
 
             <div>
                 <a href="#" class="flex mt-6 items-center space-x-4">
-                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <img class="h-8 w-8 rounded-full" src="{!! $videoAvatarUrl !!}" alt="">
                     <div class="font-medium dark:text-white">
-                        <div>田中レモン</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400">有線電車</div>
+                        <div>{{ $usermeta->pinname }}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ $usermeta->combiname }}</div>
                     </div>
                 </a>
             </div>

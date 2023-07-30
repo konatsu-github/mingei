@@ -45,8 +45,10 @@ class VideoController extends Controller
         }
 
         $videoUrl = GetS3TemporaryUrl($video->video_file_path);
+        $usermeta = Usermeta::where('user_id', $video->user_id)->first();
+        $videoAvatarUrl = GetS3TemporaryUrl($usermeta->avatar);
 
-        return view('watch', compact('videoUrl', 'video'));
+        return view('watch', compact('video', 'usermeta', 'videoAvatarUrl', 'videoUrl'));
     }
 
     public function store(Request $request)
