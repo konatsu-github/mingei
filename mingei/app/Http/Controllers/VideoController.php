@@ -14,7 +14,7 @@ class VideoController extends Controller
     public function index()
     {
         // Videoモデルからすべての動画データを取得します
-        $videos = Video::all();
+        $videos = Video::orderBy('created_at', 'desc')->get();
 
         // 連想配列にサムネイルのURLを追加する
         $videosItems = [];
