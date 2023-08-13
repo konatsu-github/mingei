@@ -64,7 +64,6 @@ npm run watch
 # livewireの作成
 php artisan make:livewire test
 
-
 # livewireの呼び出し
 <livewire:test>
 
