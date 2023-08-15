@@ -21,9 +21,6 @@ class CreateVideosTable extends Migration
             $table->text('image_file_path');
             $table->text('video_file_path');
             $table->integer('view_count')->default(0);
-            $table->integer('good_count')->default(0);
-            $table->integer('bad_count')->default(0);
-            $table->integer('video_save_count')->default(0);
             // その他の動画情報を追加する場合はここにカラムを追加します
             $table->timestamps();
 
