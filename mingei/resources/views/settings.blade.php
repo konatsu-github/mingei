@@ -19,7 +19,7 @@
   ```
 -->
         <x-alert />
-        <form action="{{ route('update.settings') }}" x-data="{ imageFile : null }" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('profile.update') }}" x-data="{ imageFile : null }" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">

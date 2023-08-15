@@ -29,12 +29,10 @@ Route::get('/history', function () {
     return view('history');
 })->name('history');
 
-Route::get('/profile', function () {
-    return view('profile');
-})->middleware(['auth'])->name('profile');
+Route::get('/profile/{id}', [ProfileController::class, 'show'])->middleware(['auth'])->name('profile.show');
 
-Route::get('/settings', [ProfileController::class, 'showProfileSettings'])->middleware(['auth'])->name('view.settings');
-Route::post('/settings', [ProfileController::class, 'updateProfileSettings'])->middleware(['auth'])->name('update.settings');
+Route::get('/settings', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile.edit');
+Route::post('/settings', [ProfileController::class, 'update'])->middleware(['auth'])->name('profile.update');
 
 Route::get('/notifications', function () {
     return view('notifications');

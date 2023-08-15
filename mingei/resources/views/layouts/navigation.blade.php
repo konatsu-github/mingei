@@ -78,8 +78,8 @@
                         <div x-transition.scale.10 x-show="userMenuOpen" @click.away="userMenuOpen = false" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
                             <a href="{{ route('upload') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">動画アップロード</a>
-                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">プロフィール</a>
-                            <a href="{{ route('view.settings') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">設定</a>
+                            <a href="{{ route('profile.show', ['id' => auth()->id()]) }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">プロフィール</a>
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">設定</a>
                             <div id="user-menu-item-2">
                                 <!-- Authentication -->
                                 <form class="p-0" method="POST" action="{{ route('logout') }}">
@@ -163,8 +163,8 @@
             </div>
             <div class="mt-3 space-y-1 px-2">
                 <a href="{{ route('upload') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">動画アップロード</a>
-                <a href="{{ route('profile') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">プロフィール</a>
-                <a href="{{ route('view.settings') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">設定</a>
+                <a href="{{ route('profile.show', ['id' => auth()->id()]) }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">プロフィール</a>
+                <a href="{{ route('profile.edit') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white">設定</a>
                 <div id="user-menu-item-2">
                     <!-- Authentication -->
                     <form class="p-0" method="POST" action="{{ route('logout') }}">

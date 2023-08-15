@@ -5,10 +5,78 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User; // ユーザーモデルへの参照を追加
 use App\Models\Usermeta;
+use App\Models\Video;
+use App\Models\VideoRate;
 
 class ProfileController extends Controller
 {
-    public function showProfileSettings()
+    // ユーザーのビデオ数をカウントするプライベート関数
+    private function countUserVideos($userId)
+    {
+        return Video::where('user_id', $userId)->count();
+    }
+
+    // ユーザーの再生回数合計を取得するプライベート関数
+    private function getTotalViewCountByUserId($userId)
+    {
+        return Video::where('user_id', $userId)->sum('view_count');
+    }
+
+    // 指定したユーザーと評価タイプ（"good"）の動画評価レコード数を取得するプライベート関数
+    private function getGoodRatingCount($userId)
+    {
+        return Video::where('user_id', $userId)
+            ->whereHas('videoRates', function ($query) {
+                $query->where('rating_type', 'good');
+            })
+            ->count();
+    }
+
+    // プロフィール表示
+    public function show($id)
+    {
+        $profileUser = User::findOrFail($id);
+
+        $profileUsermeta = null; // 初期値としてnullを設定
+        $videoCount = 0;
+        $TotalViewCount = 0;
+        $goodRatingCount = 0;
+        $profileAvatarUrl = '';
+
+        if ($profileUser) {
+            $profileUsermeta = Usermeta::where('user_id', $profileUser->id)->first();
+            $videoCount = $this->countUserVideos($profileUser->id);
+            $totalViewCount = $this->getTotalViewCountByUserId($profileUser->id);
+            $goodRatingCount = $this->getGoodRatingCount($profileUser->id);
+
+            // プロフィールのアバター画像取得
+            $profileAvatarUrl = GetS3TemporaryUrl($profileUsermeta->avatar);
+        }
+
+
+        $videos = Video::where('user_id', $profileUser->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // 連想配列にサムネイルのURLを追加する
+        $videosItems = [];
+        foreach ($videos as $video) {
+            $usermeta = Usermeta::where('user_id', $video->user_id)->first();
+            $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
+            $thumbnailUrl = GetS3TemporaryUrl($video->image_file_path);
+            $videosItems[] = [
+                'video' => $video,
+                'usermeta' => $usermeta,
+                'avatarUrl' => $avatarUrl,
+                'thumbnailUrl' => $thumbnailUrl,
+            ];
+        }
+
+
+        return view('profile', compact('profileUser', 'profileAvatarUrl', 'profileUsermeta', 'videoCount', 'totalViewCount', 'goodRatingCount', 'videosItems'));
+    }
+
+    public function edit()
     {
         // ログインしているユーザーの情報を取得
         $user = auth()->user();
@@ -23,11 +91,11 @@ class ProfileController extends Controller
         // 取得したユーザー情報をプロフィール設定ページのビューに渡す
         return view('settings', [
             'user' => $user,
-            'userMeta' => $usermeta
+            'userMeta' => $usermeta,
         ]);
     }
 
-    public function updateProfileSettings(Request $request)
+    public function update(Request $request)
     {
         // ログインしているユーザーの情報を取得
         $user = auth()->user();
