@@ -32,11 +32,11 @@
                         @else
                         <x-nav-link href="{{ route('ranking') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">ランキング</x-nav-link>
                         @endif
-                        @if ( Route::currentRouteName() === 'history' )
+                        <!-- @if ( Route::currentRouteName() === 'history' )
                         <x-nav-link href="{{ route('history') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page" active>履歴</x-nav-link>
                         @else
                         <x-nav-link href="{{ route('history') }}" class="text-white rounded-md px-3 py-2 text-sm font-medium">履歴</x-nav-link>
-                        @endif
+                        @endif -->
                         <!-- Current: "bg-yellow-400 text-white", Default: "text-gray-300 hover:bg-orange-300 hover:text-white" -->
                     </div>
                 </div>
@@ -136,11 +136,11 @@
             @else
             <x-nav-link href="{{ route('ranking') }}" class="block rounded-md px-3 py-2 text-base font-medium">ランキング</x-nav-link>
             @endif
-            @if ( Route::currentRouteName() === 'history' )
+            <!-- @if ( Route::currentRouteName() === 'history' )
             <x-nav-link href="{{ route('history') }}" class="block rounded-md px-3 py-2 text-base font-medium" aria-current="page" active>履歴</x-nav-link>
             @else
             <x-nav-link href="{{ route('history') }}" class="block rounded-md px-3 py-2 text-base font-medium">履歴</x-nav-link>
-            @endif
+            @endif -->
         </div>
 
         @auth

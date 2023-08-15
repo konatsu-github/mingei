@@ -19,9 +19,7 @@ use App\Http\Controllers\VideoController;
 
 
 
-Route::get('/ranking', function () {
-    return view('ranking');
-})->name('ranking');
+Route::get('/ranking',   [VideoController::class, 'viewVideoList'])->name('ranking');
 
 // Route::get('/recommend', function () {
 //     return view('recommend');

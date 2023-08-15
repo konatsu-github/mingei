@@ -34,6 +34,28 @@ class VideoController extends Controller
         return view('home', compact('videosItems'));
     }
 
+    public function viewVideoList()
+    {
+        // Videoモデルから、view_countの多い順に動画データを取得します
+        $videos = Video::orderBy('view_count', 'desc')->get();
+
+        // 連想配列にサムネイルのURLを追加する（以前のコードと同じ）
+        $viewVideosItems = [];
+        foreach ($videos as $video) {
+            $usermeta = Usermeta::where('user_id', $video->user_id)->first();
+            $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
+            $thumbnailUrl = GetS3TemporaryUrl($video->image_file_path);
+            $viewVideosItems[] = [
+                'video' => $video,
+                'usermeta' => $usermeta,
+                'avatarUrl' => $avatarUrl,
+                'thumbnailUrl' => $thumbnailUrl,
+            ];
+        }
+
+        return view('ranking', compact('viewVideosItems'));
+    }
+
     public function show(Request $request, $videoId)
     {
         // VideoモデルからユーザーIDと指定された'id'に紐づく動画データを取得します
