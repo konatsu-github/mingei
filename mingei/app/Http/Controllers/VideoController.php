@@ -44,6 +44,18 @@ class VideoController extends Controller
             abort(404); // 404エラーを返す例
         }
 
+        // セッションに視聴済み動画を記録するキーを作成
+        $key = 'watched_videos.' . $videoId;
+
+        // セッションにキーが存在しない場合、視聴回数を増やす
+        if (!$request->session()->has($key)) {
+            $video->view_count++;
+            $video->save();
+
+            // セッションに記録
+            $request->session()->put($key, true);
+        }
+
         $videoUrl = GetS3TemporaryUrl($video->video_file_path);
         $usermeta = Usermeta::where('user_id', $video->user_id)->first();
         $videoAvatarUrl = GetS3TemporaryUrl($usermeta->avatar);
