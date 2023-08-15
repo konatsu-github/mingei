@@ -33,28 +33,47 @@ class VideoController extends Controller
 
         return view('home', compact('videosItems'));
     }
-
-    public function viewVideoList()
+    public function rankingIndex()
     {
-        // Videoモデルから、view_countの多い順に動画データを取得します
-        $videos = Video::orderBy('view_count', 'desc')->get();
+        // View countの多い順に動画データを取得（初めの6件のみ）
+        $viewVideos = Video::orderBy('view_count', 'desc')->take(6)->get();
 
-        // 連想配列にサムネイルのURLを追加する（以前のコードと同じ）
-        $viewVideosItems = [];
+        // "good"の多い順に動画データを取得（初めの6件のみ）
+        $rateVideos = $this->getTopRatedVideos()->take(6);
+
+        $viewVideosItems = $this->prepareVideoItems($viewVideos);
+        $rateVideosItems = $this->prepareVideoItems($rateVideos);
+
+        return view('ranking', compact('viewVideosItems', 'rateVideosItems'));
+    }
+
+    private function getTopRatedVideos()
+    {
+        return Video::select('videos.*')
+            ->join('video_rates', 'videos.id', '=', 'video_rates.video_id')
+            ->where('video_rates.rating_type', 'good')
+            ->groupBy('videos.id')
+            ->orderByRaw('COUNT(video_rates.id) DESC') // "good"の数が多い順に並び替え
+            ->get();
+    }
+
+    private function prepareVideoItems($videos)
+    {
+        $videoItems = [];
         foreach ($videos as $video) {
             $usermeta = Usermeta::where('user_id', $video->user_id)->first();
             $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
             $thumbnailUrl = GetS3TemporaryUrl($video->image_file_path);
-            $viewVideosItems[] = [
+            $videoItems[] = [
                 'video' => $video,
                 'usermeta' => $usermeta,
                 'avatarUrl' => $avatarUrl,
                 'thumbnailUrl' => $thumbnailUrl,
             ];
         }
-
-        return view('ranking', compact('viewVideosItems'));
+        return $videoItems;
     }
+
 
     public function show(Request $request, $videoId)
     {
