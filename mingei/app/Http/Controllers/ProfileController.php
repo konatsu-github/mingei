@@ -32,6 +32,49 @@ class ProfileController extends Controller
             ->count();
     }
 
+    // ユーザーの総フォロワー数を取得するプライベート関数
+    private function getTotalFollowersCount($userId)
+    {
+        $userMeta = UserMeta::where('user_id', $userId)->first();
+
+        if ($userMeta) {
+            $followers = unserialize($userMeta->followers);
+            if (is_array($followers)) {
+                return count($followers);
+            }
+        }
+
+        return 0; // フォロワーが存在しない場合は0を返す
+    }
+
+    // フォローしているユーザーの情報を取得
+    private function getFollowedUsers($userId)
+    {
+        $userMeta = UserMeta::where('user_id', $userId)->first();
+        $followedUsers = [];
+
+        if ($userMeta) {
+            // ユーザーがフォローしているユーザーの情報を取得
+            $followedUserIds = unserialize($userMeta->follows);
+
+            if (is_array($followedUserIds)) {
+                foreach ($followedUserIds as $followedUserId) {
+                    $followedUser = User::find($followedUserId);
+                    $followedUsermeta = Usermeta::where('user_id', $followedUserId)->first();
+                    $followedUserAvatarUrl = GetS3TemporaryUrl($followedUsermeta->avatar);
+        
+                    $followedUsers[] = [
+                        'user' => $followedUser,
+                        'usermeta' => $followedUsermeta,
+                        'avatarUrl' => $followedUserAvatarUrl,
+                    ];
+                }
+            }
+        }
+
+        return $followedUsers; // フォロワーが存在しない場合は0を返す
+    }
+
     // プロフィール表示
     public function show($id)
     {
@@ -41,13 +84,17 @@ class ProfileController extends Controller
         $videoCount = 0;
         $TotalViewCount = 0;
         $goodRatingCount = 0;
+        $totalFollowersCount = 0;
         $profileAvatarUrl = '';
+        $followedUsers = [];
 
         if ($profileUser) {
             $profileUsermeta = Usermeta::where('user_id', $profileUser->id)->first();
             $videoCount = $this->countUserVideos($profileUser->id);
             $totalViewCount = $this->getTotalViewCountByUserId($profileUser->id);
             $goodRatingCount = $this->getGoodRatingCount($profileUser->id);
+            $totalFollowersCount = $this->getTotalFollowersCount($profileUser->id);
+            $followedUsers = $this -> getFollowedUsers($profileUser->id);
 
             // プロフィールのアバター画像取得
             $profileAvatarUrl = GetS3TemporaryUrl($profileUsermeta->avatar);
@@ -73,7 +120,7 @@ class ProfileController extends Controller
         }
 
 
-        return view('profile', compact('profileUser', 'profileAvatarUrl', 'profileUsermeta', 'videoCount', 'totalViewCount', 'goodRatingCount', 'videosItems'));
+        return view('profile', compact('followedUsers', 'profileUser', 'profileAvatarUrl', 'profileUsermeta', 'videoCount', 'totalViewCount', 'goodRatingCount', 'totalFollowersCount', 'videosItems'));
     }
 
     public function edit()
