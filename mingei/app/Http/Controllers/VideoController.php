@@ -154,4 +154,28 @@ class VideoController extends Controller
         // フォームに動画が選択されていない場合はエラーメッセージを表示するなどの処理を行います
         return redirect()->back()->withErrors('動画が選択されていません。')->with('message', '動画が選択されていません。')->with('messageType', 'error');
     }
+
+    public function destroy($videoId)
+    {
+        // 動画データを取得
+        $video = Video::find($videoId);
+
+        if (!$video) {
+            // 動画が存在しない場合は適切な処理を行ってください（例：エラーメッセージの表示など）
+            abort(404); // 404エラーを返す例
+        }
+
+        // 削除が許可されているか確認
+        if ($video->user_id === Auth::id()) {
+            // 削除処理
+            Storage::disk('s3')->delete($video->video_file_path);
+            Storage::disk('s3')->delete($video->image_file_path);
+            $video->delete();
+            // 成功メッセージなどの処理を行い、リダイレクトするなどの操作を行います
+            return redirect()->route('profile.show', ['id' => $video->user_id])->with('message', '動画が削除されました！')->with('messageType', 'success');
+        } else {
+            // ユーザーが動画の所有者でない場合の処理
+            return redirect()->back()->withErrors('動画を削除する権限がありません。')->with('messageType', 'error');
+        }
+    }
 }

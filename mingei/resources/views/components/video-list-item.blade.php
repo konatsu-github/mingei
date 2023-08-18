@@ -20,7 +20,18 @@
                     @endif
                 </div>
             </a>
-            
+            @if (isset($userId) && $userId == Auth::id())
+            <form onsubmit="return formConfirm()" action="{{ route('video.destroy', ['videoId' => $id]) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="mt-6 w-full text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">動画を削除する</button>
+            </form>
+            <script>
+                function formConfirm() {
+                    return window.confirm('本当に動画を削除しますか？');
+                }
+            </script>
+            @endif
         </div>
     </div>
 </div>
