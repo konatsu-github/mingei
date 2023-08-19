@@ -44,6 +44,6 @@ class UnsubscribeController extends Controller
         $user->delete();
 
         // 退会後のリダイレクト先などを指定
-        return redirect()->route('home')->with('success', '退会が完了しました。');
+        return redirect()->route('home')->with('message', '退会が完了しました。')->with('messageType', 'success');
     }
 }

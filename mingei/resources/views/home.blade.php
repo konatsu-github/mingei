@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">ホーム</h1>
     </x-slot>
-
+    <x-alert />
     <section>
         <div class="pb-4 border-b border-gray-600">
             <h3 class="text-xl font-semibold leading-6 text-gray-800">みんなの動画</h3>
