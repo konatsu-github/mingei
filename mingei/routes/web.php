@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\UnsubscribeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +44,13 @@ Route::get('/notifications', function () {
 Route::get('/upload', function () {
     return view('upload');
 })->middleware(['auth'])->name('upload');
+
+Route::get('/unsubscribe', function () {
+    return view('unsubscribe');
+})->middleware(['auth'])->name('unsubscribe.show');
+
+// 退会リクエストのルーティング
+Route::post('/unsubscribe', [UnsubscribeController::class, 'unsubscribe'])->middleware(['auth'])->name('unsubscribe');
 
 Route::get('/',  [VideoController::class, 'index'])->name('home');
 

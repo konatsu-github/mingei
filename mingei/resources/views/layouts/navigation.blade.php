@@ -87,6 +87,7 @@
                                     <input class="block px-4 py-2 text-sm text-gray-700 cursor-pointer w-full text-left" type="submit" value="ログアウト">
                                 </form>
                             </div>
+                            <a href="{{ route('unsubscribe.show') }}" class="block px-4 py-2 text-sm text-red-400 font-bold" role="menuitem" tabindex="-1">退会</a>
                         </div>
                     </div>
                 </div>
@@ -172,7 +173,7 @@
                         <input class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white cursor-pointer w-full text-left" type="submit" value="ログアウト">
                     </form>
                 </div>
-
+                <a href="{{ route('unsubscribe.show') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-orange-300 hover:text-white" role="menuitem" tabindex="-1">退会</a>
             </div>
         </div>
         @else
