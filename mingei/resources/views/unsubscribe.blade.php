@@ -11,7 +11,7 @@
                         <h4 class="mt-8 text-2xl font-semibold leading-none tracking-tighter text-neutral-600 lg:text-3xl">退会フォーム</h4>
                         <p class="mt-3 text-base leading-relaxed text-gray-500">
                         <ol class="list-decimal pl-6">
-                            <li class="mb-3"><span class="font-bold">アップロードした動画の消失:</span> 退会が完了すると、あなたがアップロードしたすべての動画が永久に削除されます。他のユーザーによる閲覧や評価ができなくなりますので、再度アカウントを作成してアップロードすることはできません。</li>
+                            <li class="mb-3"><span class="font-bold">アップロードした動画の消失:</span> 退会が完了すると、あなたがアップロードしたすべての動画が永久に削除されますので、他のユーザーによる閲覧や評価ができなくなります。</li>
                             <li class="mb-3"><span class="font-bold">保存したデータの喪失:</span> 退会に伴い、保存したすべてのデータが失われます。これには設定、コメント、お気に入り、履歴などが含まれます。データの復旧は不可能ですので、慎重にお考えください。</li>
                             <li class="mb-3"><span class="font-bold">アカウントのアクセス停止:</span> 退会手続きが完了すると、アカウントへのアクセスが即座に停止されます。ログインやサービスの利用はできなくなりますので、ご注意ください。</li>
                         </ol>
