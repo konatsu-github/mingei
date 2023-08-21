@@ -7,6 +7,7 @@ use App\Models\User; // ユーザーモデルへの参照を追加
 use App\Models\Usermeta;
 use App\Models\Video;
 use App\Models\VideoRate;
+use App\Models\VideoSave;
 
 class ProfileController extends Controller
 {
@@ -121,8 +122,30 @@ class ProfileController extends Controller
             ];
         }
 
+        // ログインしているユーザーのIDを取得（仮定：Auth::user() を使用）
+        $loggedInUserId = auth()->user()->id;
 
-        return view('profile', compact('followedUsers', 'profileUser', 'profileAvatarUrl', 'profileUsermeta', 'videoCount', 'totalViewCount', 'goodRatingCount', 'totalFollowersCount', 'videosItems'));
+        // ユーザーが保存した動画のIDを取得
+        $savedVideoIds = VideoSave::where('user_id', $loggedInUserId)->pluck('video_id');
+
+        // 保存された動画のデータを取得
+        $savedVideos = Video::whereIn('id', $savedVideoIds)->orderBy('created_at', 'desc')->get();
+
+        $saveVideosItems = [];
+        foreach ($savedVideos as $savedVideo) {
+            $usermeta = Usermeta::where('user_id', $savedVideo->user_id)->first();
+            $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
+            $thumbnailUrl = GetS3TemporaryUrl($savedVideo->image_file_path);
+            $saveVideosItems[] = [
+                'video' => $savedVideo,
+                'usermeta' => $usermeta,
+                'avatarUrl' => $avatarUrl,
+                'thumbnailUrl' => $thumbnailUrl,
+            ];
+        }
+
+
+        return view('profile', compact('followedUsers', 'profileUser', 'profileAvatarUrl', 'profileUsermeta', 'videoCount', 'totalViewCount', 'goodRatingCount', 'totalFollowersCount', 'videosItems', 'saveVideosItems'));
     }
 
     public function edit()
