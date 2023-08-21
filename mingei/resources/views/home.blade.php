@@ -5,7 +5,12 @@
     <x-alert />
     <section>
         <div class="pb-4 border-b border-gray-600">
-            <h3 class="text-xl font-semibold leading-6 text-gray-800">みんなの動画</h3>
+            <h3 class="text-xl font-semibold leading-6 text-gray-800"> 
+                @if(request()->has('s'))
+                "{{ request('s') }}" の検索結果 "{{$searchResultsCount}}"件
+                @else
+                みんなの動画
+                @endif</h3>
         </div>
 
         <div class="relative mx-auto max-w-7xl">

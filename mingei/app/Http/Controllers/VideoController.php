@@ -11,10 +11,40 @@ use App\Models\Usermeta;
 class VideoController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        // Videoモデルからすべての動画データを取得します
-        $videos = Video::orderBy('created_at', 'desc')->get();
+
+        $searchResultsCount = 0;
+
+        if ($request->has('s')) {
+            // 検索キーワード
+            $searchQuery = $request->input('s');
+
+            // ユーザーニックネーム、ピンネーム、コンビネームのカラムを検索
+            $userIdsFromUsermetas = Usermeta::where('nickname', 'LIKE', "%$searchQuery%")
+                ->orWhere('pinname', 'LIKE', "%$searchQuery%")
+                ->orWhere('combiname', 'LIKE', "%$searchQuery%")
+                ->pluck('user_id');
+
+            // タイトル、説明のカラムを検索
+            $videoIdsFromVideos = Video::where('title', 'LIKE', "%$searchQuery%")
+                ->orWhere('description', 'LIKE', "%$searchQuery%")
+                ->pluck('id');
+
+            // user_idを指定して動画データを取得
+            $videos = Video::whereIn('user_id', $userIdsFromUsermetas)
+                ->orWhereIn('id', $videoIdsFromVideos)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            // 検索結果数を取得
+            $searchResultsCount = count($videos);
+        } else {
+            // クエリパラメータ "s" が存在しない場合は通常の処理
+            $videos = Video::orderBy('created_at', 'desc')->get();
+        }
+
+
 
         // 連想配列にサムネイルのURLを追加する
         $videosItems = [];
@@ -31,8 +61,10 @@ class VideoController extends Controller
         }
 
 
-        return view('home', compact('videosItems'));
+        return view('home', compact('videosItems', 'searchResultsCount'));
     }
+
+
     public function rankingIndex()
     {
         // View countの多い順に動画データを取得（初めの6件のみ）
