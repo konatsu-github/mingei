@@ -30,7 +30,7 @@ Route::get('/history', function () {
     return view('history');
 })->name('history');
 
-Route::get('/profile/{id}', [ProfileController::class, 'show'])->middleware(['auth'])->name('profile.show');
+Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 // 動画削除のルーティング
 Route::delete('/video/{videoId}', [VideoController::class, 'destroy'])->middleware(['auth'])->name('video.destroy');
 

@@ -7,13 +7,19 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div>
-                    <div class="flex items-center space-x-4 pt-3">
-                        <img class="h-8 w-8 rounded-full" src="{!! $profileAvatarUrl !!}" alt="">
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-base font-semibold leading-7 text-gray-900">{{ $profileUsermeta->pinname ?: $profileUsermeta->nickname }}</h3>
-                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">{{ $profileUsermeta->combiname }}</p>
+
+                    <div class="flex">
+                        <div class="flex items-center space-x-4 mr-4">
+                            <img class="h-8 w-8 rounded-full" src="{!! $profileAvatarUrl !!}" alt="">
+                            <div class="px-4 sm:px-0">
+                                <h3 class="text-base font-semibold leading-7 text-gray-900">{{ $profileUsermeta->pinname ?: $profileUsermeta->nickname }}</h3>
+                                <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">{{ $profileUsermeta->combiname }}</p>
+                            </div>
                         </div>
+                        @livewire('follow-button', ['videoUserId' => $profileUser->id])
                     </div>
+
+
 
                     <div class="mt-6 border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -58,7 +64,11 @@
                             <a href="{{ route('profile.show', ['id' => $followedUser['user']->id]) }}" class="flex items-center space-x-4 pt-3">
                                 <img class="h-8 w-8 rounded-full" src="{!! $followedUser['avatarUrl']; !!}" alt="">
                                 <div class="font-medium dark:text-white">
+                                    @if ($followedUser['usermeta']['pinname'])
                                     <div>{{ $followedUser['usermeta']['pinname'] }}</div>
+                                    @else
+                                    <div>{{ $followedUser['usermeta']['nickname'] }}</div>
+                                    @endif
                                     @if ($followedUser['usermeta']['combiname'])
                                     <div class="text-sm text-gray-500 dark:text-gray-400">{{ $followedUser['usermeta']['combiname'] }}</div>
                                     @endif

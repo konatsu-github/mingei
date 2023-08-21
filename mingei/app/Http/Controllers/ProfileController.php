@@ -60,14 +60,16 @@ class ProfileController extends Controller
             if (is_array($followedUserIds)) {
                 foreach ($followedUserIds as $followedUserId) {
                     $followedUser = User::find($followedUserId);
-                    $followedUsermeta = Usermeta::where('user_id', $followedUserId)->first();
-                    $followedUserAvatarUrl = GetS3TemporaryUrl($followedUsermeta->avatar);
-        
-                    $followedUsers[] = [
-                        'user' => $followedUser,
-                        'usermeta' => $followedUsermeta,
-                        'avatarUrl' => $followedUserAvatarUrl,
-                    ];
+                    if ($followedUser) {
+                        $followedUsermeta = Usermeta::where('user_id', $followedUserId)->first();
+                        $followedUserAvatarUrl = GetS3TemporaryUrl($followedUsermeta->avatar);
+
+                        $followedUsers[] = [
+                            'user' => $followedUser,
+                            'usermeta' => $followedUsermeta,
+                            'avatarUrl' => $followedUserAvatarUrl,
+                        ];
+                    }
                 }
             }
         }
@@ -94,7 +96,7 @@ class ProfileController extends Controller
             $totalViewCount = $this->getTotalViewCountByUserId($profileUser->id);
             $goodRatingCount = $this->getGoodRatingCount($profileUser->id);
             $totalFollowersCount = $this->getTotalFollowersCount($profileUser->id);
-            $followedUsers = $this -> getFollowedUsers($profileUser->id);
+            $followedUsers = $this->getFollowedUsers($profileUser->id);
 
             // プロフィールのアバター画像取得
             $profileAvatarUrl = GetS3TemporaryUrl($profileUsermeta->avatar);
