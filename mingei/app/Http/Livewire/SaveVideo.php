@@ -15,10 +15,13 @@ class SaveVideo extends Component
 
     public $videoId;
     public $isSaved = false;
+    public $videoUserId;
 
-    public function mount()
+    public function mount($videoUserId)
     {
         if (Auth::check()) {
+            $this->videoUserId = $videoUserId;
+            
             // ログインしているユーザーのIDを取得
             $userId = Auth::id();
 

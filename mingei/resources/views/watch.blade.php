@@ -17,7 +17,7 @@
             </div>
 
             <div>
-                <a href="#" class="flex mt-6 items-center space-x-4">
+                <a href="{{ route('profile.show', ['id' => $video->user_id]) }}" class="flex mt-6 items-center space-x-4">
                     <img class="h-8 w-8 rounded-full" src="{!! $videoAvatarUrl !!}" alt="">
                     <div class="font-medium dark:text-white">
                         <div>{{ $usermeta->pinname ?: $usermeta->nickname }}</div>
@@ -37,7 +37,7 @@
                         </svg>
                         <span>共有</span>
                     </button>
-                    @livewire('save-video', ['videoId' => $video->id])
+                    @livewire('save-video', ['videoId' => $video->id, 'videoUserId' => $video->user_id])
                     <button class="flex items-center space-x-1 p-2 bg-white whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                             <path d="M200-120v-680h343l19 86h238v370H544l-18.933-85H260v309h-60Zm300-452Zm95 168h145v-250H511l-19-86H260v251h316l19 85Z" />

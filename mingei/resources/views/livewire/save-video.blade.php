@@ -1,4 +1,4 @@
-@if (!auth()->check() || $videoId != auth()->user()->id)
+@if (!auth()->check() || $videoUserId != auth()->user()->id)
 <div>
     <button wire:click="toggleSave" class="{{ $isSaved ? 'bg-orange-400 text-white' : '' }} flex items-center space-x-1 p-2 whitespace-nowrap mr-2 outline-none ring-2 ring-gray-300 font-medium rounded-full text-sm text-center">
         <svg class="{{ $isSaved ? 'fill-white' : '' }} w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
