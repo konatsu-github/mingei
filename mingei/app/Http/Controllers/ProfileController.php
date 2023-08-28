@@ -122,6 +122,9 @@ class ProfileController extends Controller
             ];
         }
 
+        $saveVideosItems = [];
+        
+        if (auth()->check()) {
         // ログインしているユーザーのIDを取得（仮定：Auth::user() を使用）
         $loggedInUserId = auth()->user()->id;
 
@@ -131,7 +134,6 @@ class ProfileController extends Controller
         // 保存された動画のデータを取得
         $savedVideos = Video::whereIn('id', $savedVideoIds)->orderBy('created_at', 'desc')->get();
 
-        $saveVideosItems = [];
         foreach ($savedVideos as $savedVideo) {
             $usermeta = Usermeta::where('user_id', $savedVideo->user_id)->first();
             $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
@@ -144,6 +146,7 @@ class ProfileController extends Controller
             ];
         }
 
+        }
 
         return view('profile', compact('followedUsers', 'profileUser', 'profileAvatarUrl', 'profileUsermeta', 'videoCount', 'totalViewCount', 'goodRatingCount', 'totalFollowersCount', 'videosItems', 'saveVideosItems'));
     }

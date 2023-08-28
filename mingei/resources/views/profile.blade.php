@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">
-            @if(auth()->user()->id == $profileUser -> id)
+            @if(auth()->check() && auth()->user()->id == $profileUser -> id)
             マイプロフィール
             @else
             {{ $profileUsermeta->pinname ?: $profileUsermeta->nickname }}さんのプロフィール
@@ -52,7 +52,7 @@
         </div>
 
         @auth
-        @if(auth()->user()->id == $profileUser -> id)
+        @if(auth()->check() && auth()->user()->id == $profileUser -> id)
         <div x-data="{ isOpen: false }" id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
             <div id="accordion-flush-heading-1">
                 <button x-on:click="isOpen = !isOpen" type="button" :class="{ 'text-gray-900': isOpen }" class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
@@ -90,7 +90,7 @@
         @endauth
     </section>
 
-    @if(auth()->user()->id == $profileUser -> id)
+    @if(auth()->check() && auth()->user()->id == $profileUser -> id)
     <section class="mt-10">
         <x-alert />
         <div class="pb-4 border-b border-gray-600">
