@@ -6,10 +6,12 @@ use Livewire\Component;
 use App\Models\VideoRate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Video;
 
 class RateVideo extends Component
 {
     public $videoId;
+    public $videoUserId;
     public $goodCount = 0;
     public $badCount = 0;
     public $isActiveGood = false;
@@ -39,6 +41,13 @@ class RateVideo extends Component
                 } elseif ($rating->rating_type === 'bad') {
                     $this->isActiveBad = true;
                 }
+            }
+
+            $video = Video::where('id', $this->videoId)
+                ->first();
+
+            if ($video) {
+                $this->videoUserId =   $video->user_id;
             }
         }
     }
