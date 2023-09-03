@@ -117,18 +117,6 @@ class VideoController extends Controller
             abort(404); // 404エラーを返す例
         }
 
-        // セッションに視聴済み動画を記録するキーを作成
-        $key = 'watched_videos.' . $videoId;
-
-        // セッションにキーが存在しない場合、視聴回数を増やす
-        if (!$request->session()->has($key)) {
-            $video->view_count++;
-            $video->save();
-
-            // セッションに記録
-            $request->session()->put($key, true);
-        }
-
         $videoUrl = GetS3TemporaryUrl($video->video_file_path);
         $usermeta = Usermeta::where('user_id', $video->user_id)->first();
         $videoAvatarUrl = GetS3TemporaryUrl($usermeta->avatar);
@@ -141,6 +129,21 @@ class VideoController extends Controller
             ->get();
 
         $relatedVideosItems = $this->prepareVideoItems($relatedVideos);
+
+
+        // クッキーの名前を定義
+        $cookieName = 'video_' . $videoId;
+
+        // クッキーにキーが存在しない場合、視聴回数を増やす
+        if (!$request->cookie($cookieName)) {
+            $video->view_count++;
+            $video->save();
+
+            // クッキーに記録（24時間有効なクッキーを設定）
+            return response()
+                ->view('watch', compact('video', 'usermeta', 'videoAvatarUrl', 'videoUrl', 'relatedVideosItems'))
+                ->cookie($cookieName, true, 14400000000000000); // 1440分 = 24時間
+        }
 
         return view('watch', compact('video', 'usermeta', 'videoAvatarUrl', 'videoUrl', 'relatedVideosItems'));
     }
