@@ -92,7 +92,6 @@
 
     @if(auth()->check() && auth()->user()->id == $profileUser -> id)
     <section class="mt-10">
-        <x-alert />
         <div class="pb-4 border-b border-gray-600">
             <h3 class="text-xl font-semibold leading-6 text-gray-800">保存した動画一覧</h3>
         </div>
@@ -110,7 +109,7 @@
     <section class="mt-10">
         <x-alert />
         <div class="pb-4 border-b border-gray-600">
-            <h3 class="text-xl font-semibold leading-6 text-gray-800">動画一覧</h3>
+            <h3 class="text-xl font-semibold leading-6 text-gray-800">自分の動画一覧</h3>
         </div>
 
         <div class="relative mx-auto max-w-7xl">
