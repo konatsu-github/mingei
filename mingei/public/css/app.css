@@ -1284,6 +1284,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(254 252 232 / var(--tw-bg-opacity));
 }
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
 .bg-opacity-75 {
   --tw-bg-opacity: 0.75;
 }
@@ -1846,6 +1850,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
+.hover\:bg-orange-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
+}
 .hover\:text-gray-400:hover {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -2020,6 +2028,9 @@ select {
 }
 .focus-visible\:outline-orange-400:focus-visible {
   outline-color: #fb923c;
+}
+.focus-visible\:outline-gray-400:focus-visible {
+  outline-color: #9ca3af;
 }
 .active\:bg-gray-100:active {
   --tw-bg-opacity: 1;

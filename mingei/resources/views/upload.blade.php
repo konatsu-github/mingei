@@ -18,9 +18,9 @@
   ```
 -->
         <x-alert />
-        <div>
+        <!-- <div>
             <div x-data="{ videoFile: null, imageFile : null, isUploading: false }">
-                <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data">
+                <form id="uploadForm" action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="space-y-12">
                         <div class="border-b border-gray-900/10 pb-12">
@@ -99,26 +99,35 @@
                             </div>
                         </div>
 
-                        <div class="progress mt-2" style="display:none;">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                        <div id="progress" class="progress mt-2" style="display: none;">
+                            <div id="progress-bar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
                         </div>
 
                         <div class="mt-6 flex items-center justify-end gap-x-6">
                             <button @click="resetInput" type="button" class="text-sm font-semibold leading-6 text-gray-900">キャンセル</button>
-                            <button @click="isUploading = true" type="submit" class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400">アップロード</button>
+                            <button type="submit" class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400">アップロード</button>
                         </div>
                     </div>
 
                 </form>
 
-                <div x-show="isUploading">
-                    <!-- ローディング画面の内容をここに表示します -->
-                    <x-loading>アップロード中やねん...</x-loading>
-                </div>
             </div>
 
-
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
+                $(document).ready(function() {
+                    $('#uploadForm').submit(function(e) {
+                        e.preventDefault();
+
+                        var formData = new FormData(this);
+                        var videoFile = $('#video-upload')[0].files[0];
+                        var imageFile = $('#image-upload')[0].files[0];
+
+                        // ファイルをチャンクに分割してアップロードするための関数を呼び出し
+                        uploadFiles(formData, videoFile, imageFile);
+                    });
+                });
+
                 /** キャンセルボタンクリック時 */
                 function resetInput() {
                     const videoInput = document.getElementById('video-upload');
@@ -135,17 +144,68 @@
                     this.videoFile = null;
                     this.imageFile = null;
                 }
+                // ファイルをチャンクに分割してアップロードする関数
+                function uploadFiles(formData, videoFile, imageFile) {
+                    var chunkSize = 1024 * 1024; // 1MBチャンクサイズ（調整可能）
+                    var totalChunks = Math.ceil(videoFile.size / chunkSize);
+                    var chunk = 0;
+
+                    $('#progress').show();
+
+                    function sendNextChunk() {
+                        var start = chunk * chunkSize;
+                        var end = Math.min(start + chunkSize, videoFile.size);
+                        var chunkData = videoFile.slice(start, end);
+
+                        formData.delete('video-upload');
+                        formData.append('videoChank', chunkData);
+                        formData.append('totalChank', totalChunks);
+                        formData.append('currentChank', chunk);
+
+                        $.ajax({
+                            xhr: function() {
+                                var xhr = new window.XMLHttpRequest();
+                                xhr.upload.addEventListener('progress', function(e) {
+                                    if (e.lengthComputable) {
+                                        var percent = ((chunk + 1) / totalChunks) * 100;
+                                        $('#progress-bar').css('width', percent + '%');
+                                        $('#progress-bar').text(Math.floor(percent) + '%');
+                                    }
+                                }, false);
+                                return xhr;
+                            },
+                            url: $('#uploadForm').attr('action'),
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(data) {
+                                chunk++;
+
+                                if (chunk < totalChunks) {
+                                    sendNextChunk(); // 次のチャンクをアップロード
+                                } else {
+                                    // すべてのチャンクがアップロードされた後の処理
+                                    alert('アップロードが完了しました。');
+                                    $('#progress').hide();
+                                }
+                            },
+                            error: function(xhr, textStatus, errorThrown) {
+                                alert('エラーが発生しました。');
+                                $('#progress').hide();
+                            }
+                        });
+                    }
+
+                    sendNextChunk(); // 最初のチャンクをアップロード
+                }
             </script>
-        </div>
+        </div> -->
 
 
-
-
-
+        @livewire('upload')
 
 
     </div>
-
-
 
 </x-app-layout>

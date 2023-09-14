@@ -150,44 +150,50 @@ class VideoController extends Controller
 
     public function store(Request $request)
     {
-        // ログインしているユーザーのIDを取得
+
+        $chunk = $request->file('videoChank');
+        $currentChunk = $request->input('currentChunk');
+        $totalChunks = $request->input('totalChunks');
+
+        
         $userId = Auth::id();
 
+        // チャンクを保存する処理を追加 (例: storage/app/uploads)
+        $chunk->storeAs("uploads/{$userId}", "chunk_{$currentChunk}");
+        
 
-        // 例えば、動画ファイルを保存する場合は以下のようにします
-        if ($request->hasFile('video-upload')) {
+        $videoFile = $request->file('video-upload');
+        $imageFile = $request->file('image-upload');
 
-            // 動画アップロード
-            $video = $request->file('video-upload');
-            $image = $request->file('image-upload');
+        // ファイルのバリデーションなどを行う
 
-            $videoFilePath = $video->store('videos', 's3');
-            $imageFilePath = $image->store('images', 's3');
+        // チャンクアップロードを受け入れるためのストレージパス
+        $videoFilePath = 'videos/chunks/' . time() . '_' . $videoFile->getClientOriginalName();
+        $imageFilePath = 'images/chunks/' . time() . '_' . $imageFile->getClientOriginalName();
 
-            // フォームの値取得
-            $inputTitle = $request->input('title');
-            $textareaDescription = $request->input('description');
+        // アップロード先にディレクトリがない場合は作成
+        Storage::disk('s3')->makeDirectory('videos/chunks');
+        Storage::disk('s3')->makeDirectory('images/chunks');
+
+        // チャンクアップロードしたファイルをストレージに保存
+        $videoFile->storeAs('videos/chunks', $videoFilePath, 's3');
+        $imageFile->storeAs('images/chunks', $imageFilePath, 's3');
 
 
-            // 保存したファイルのパスをデータベースに保存します
-            $videoModel = new Video();
-            $videoModel->user_id = $userId;
-            $videoModel->title = $inputTitle;
-            $videoModel->description = $textareaDescription;
-            $videoModel->video_file_path = $videoFilePath;
-            $videoModel->image_file_path = $imageFilePath;
-            $videoModel->save();
+        // フォームの値取得
+        $inputTitle = $request->input('title');
+        $textareaDescription = $request->input('description');
 
-            // $temporaryUrl = $this->getTemporaryUrl($path);
 
-            // dd($temporaryUrl);
-
-            // 成功メッセージなどの処理を行い、リダイレクトするなどの操作を行います
-            return redirect()->route('upload')->with('message', '動画がアップロードされました！')->with('messageType', 'success');
-        }
-
-        // フォームに動画が選択されていない場合はエラーメッセージを表示するなどの処理を行います
-        return redirect()->back()->withErrors('動画が選択されていません。')->with('message', '動画が選択されていません。')->with('messageType', 'error');
+        // 保存したファイルのパスをデータベースに保存します
+        $videoModel = new Video();
+        $videoModel->user_id = $userId;
+        $videoModel->title = $inputTitle;
+        $videoModel->description = $textareaDescription;
+        $videoModel->video_file_path = $videoFilePath;
+        $videoModel->image_file_path = $imageFilePath;
+        $videoModel->save();
+        return response()->json(['success' => 'アップロードが完了しました。']);
     }
 
     public function destroy($videoId)
