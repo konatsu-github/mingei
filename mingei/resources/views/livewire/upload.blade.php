@@ -41,7 +41,7 @@
                             </svg>
                         </label>
                         <div class="mt-4 text-sm leading-6 text-gray-600">
-                            <label for="video-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-orange-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 hover:text-indigo-500">
+                            <label for="video-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-orange-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 hover:text-orange-500">
                                 <span>動画を選択</span>
                             </label>
                         </div>
@@ -49,7 +49,15 @@
                     </div>
                 </div>
                 @endif
-                <input id="video-upload" wire:model="video" type="file" class="sr-only">
+                <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+                    <!-- File Input -->
+                    <input id="video-upload" wire:model="video" type="file" class="sr-only">
+
+                    <!-- Progress Bar -->
+                    <div x-show="isUploading" class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                        <div class="bg-yellow-400 h-2.5 rounded-full" x-bind:style="'width:' + progress + '%'"></div>
+                    </div>
+                </div>
             </div>
 
             <h2 class="mt-10 text-base font-semibold leading-7 text-gray-900">動画のサムネイル画像をアップロードしてください</h2>
@@ -69,7 +77,7 @@
                             </svg>
                         </label>
                         <div class="mt-4 text-sm leading-6 text-gray-600">
-                            <label for="image-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-orange-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 hover:text-indigo-500">
+                            <label for="image-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-orange-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-400 focus-within:ring-offset-2 hover:text-orange-500">
                                 <span>サムネイル画像を選択</span>
                             </label>
                         </div>
@@ -77,12 +85,22 @@
                     </div>
                 </div>
                 @endif
-                <input id="image-upload" wire:model="thumbnail" type="file" class="sr-only">
+                <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+                    <!-- File Input -->
+                    <input id="image-upload" wire:model="thumbnail" type="file" class="sr-only">
+
+                    <!-- Progress Bar -->
+                    <div x-show="isUploading" class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                        <div class="bg-yellow-400 h-2.5 rounded-full" x-bind:style="'width:' + progress + '%'"></div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button @click="resetInput" type="button" class="text-sm font-semibold leading-6 text-gray-900">キャンセル</button>
+            <button wire:click="resetFields" type="button" class="text-sm font-semibold leading-6 text-gray-900">キャンセル</button>
             @if ($thumbnail && $video && $title && $description)
             <button type="submit" class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400">アップロード</button>
             @else
@@ -94,20 +112,5 @@
 </form>
 
 <script>
-    /** キャンセルボタンクリック時 */
-    function resetInput() {
-        const videoInput = document.getElementById('video-upload');
-        const imageInput = document.getElementById('image-upload');
-        const titleInput = document.getElementById('title');
-        const descriptionTextarea = document.getElementById('description');
 
-
-        videoInput.value = '';
-        imageInput.value = '';
-        titleInput.value = '';
-        descriptionTextarea.value = '';
-
-        this.videoFile = null;
-        this.imageFile = null;
-    }
 </script>
