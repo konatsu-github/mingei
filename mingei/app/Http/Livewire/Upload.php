@@ -8,7 +8,7 @@ use App\Models\Video; // Videoモデルを使用するためにインポート
 use Illuminate\Support\Facades\Auth; // Authファサードを使用するためにインポート
 use Illuminate\Support\Facades\Storage;
 use App\Models\Usermeta;
-use Image; // Intervention Imageをインポート
+use Intervention\Image\Facades\Image;
 
 class Upload extends Component
 {
@@ -42,11 +42,7 @@ class Upload extends Component
         $videoFilePath = $this->video->store('videos', 's3');
 
         // 画像アップロードとトリミング
-        $image = Image::make($this->thumbnail)->fit(640, 360)->stream();
-        $imageFilePath = 'images/' . uniqid() . '.jpg'; // 一意のファイル名を生成
-
-        // S3にトリミングされた画像を保存
-        Storage::disk('s3')->put($imageFilePath, $image->__toString());
+        $imageFilePath = $this->resizeAndStoreImage($this->thumbnail);
 
         // 保存したファイルのパスをデータベースに保存します
         $videoModel = new Video();
@@ -62,5 +58,26 @@ class Upload extends Component
 
         // // フォームに動画が選択されていない場合はエラーメッセージを表示するなどの処理を行います
         // return redirect()->back()->withErrors('動画が選択されていません。')->with('message', '動画が選択されていません。')->with('messageType', 'error');
+    }
+
+    // 画像をリサイズしてS3に保存するメソッド
+    private function resizeAndStoreImage($image)
+    {
+        $imagePath = $image->store('temp', 'public'); // 一時的にストレージに保存
+
+        // 画像をリサイズ
+        $resizedImage = Image::make(storage_path('app/public/' . $imagePath))
+            ->fit(640, 360)
+            ->encode();
+
+        $resizedImagePath = 'images/' . uniqid() . '.jpg'; // 一意のファイル名を生成
+
+        // リサイズした画像をS3に保存
+        Storage::disk('s3')->put($resizedImagePath, $resizedImage);
+
+        // 一時ファイルを削除
+        Storage::disk('public')->delete($imagePath);
+
+        return $resizedImagePath;
     }
 }

@@ -56,7 +56,6 @@ Route::get('/',  [VideoController::class, 'index'])->name('home');
 
 Route::get('/watch/{videoId}', [VideoController::class, 'show'])->name('watch');
 
-Route::post('/upload', [VideoController::class, 'store'])->middleware(['auth'])->name('video.upload');
 // Route::get('/notifications', function () {
 //     return view('notifications');
 // })->middleware(['auth'])->name('notifications');

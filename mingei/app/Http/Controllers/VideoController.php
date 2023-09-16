@@ -7,6 +7,7 @@ use App\Models\Video; // Videoモデルを使用するためにインポート
 use Illuminate\Support\Facades\Auth; // Authファサードを使用するためにインポート
 use Illuminate\Support\Facades\Storage;
 use App\Models\Usermeta;
+use Intervention\Image\Facades\Image;
 
 class VideoController extends Controller
 {
@@ -146,54 +147,6 @@ class VideoController extends Controller
         }
 
         return view('watch', compact('video', 'usermeta', 'videoAvatarUrl', 'videoUrl', 'relatedVideosItems'));
-    }
-
-    public function store(Request $request)
-    {
-
-        $chunk = $request->file('videoChank');
-        $currentChunk = $request->input('currentChunk');
-        $totalChunks = $request->input('totalChunks');
-
-        
-        $userId = Auth::id();
-
-        // チャンクを保存する処理を追加 (例: storage/app/uploads)
-        $chunk->storeAs("uploads/{$userId}", "chunk_{$currentChunk}");
-        
-
-        $videoFile = $request->file('video-upload');
-        $imageFile = $request->file('image-upload');
-
-        // ファイルのバリデーションなどを行う
-
-        // チャンクアップロードを受け入れるためのストレージパス
-        $videoFilePath = 'videos/chunks/' . time() . '_' . $videoFile->getClientOriginalName();
-        $imageFilePath = 'images/chunks/' . time() . '_' . $imageFile->getClientOriginalName();
-
-        // アップロード先にディレクトリがない場合は作成
-        Storage::disk('s3')->makeDirectory('videos/chunks');
-        Storage::disk('s3')->makeDirectory('images/chunks');
-
-        // チャンクアップロードしたファイルをストレージに保存
-        $videoFile->storeAs('videos/chunks', $videoFilePath, 's3');
-        $imageFile->storeAs('images/chunks', $imageFilePath, 's3');
-
-
-        // フォームの値取得
-        $inputTitle = $request->input('title');
-        $textareaDescription = $request->input('description');
-
-
-        // 保存したファイルのパスをデータベースに保存します
-        $videoModel = new Video();
-        $videoModel->user_id = $userId;
-        $videoModel->title = $inputTitle;
-        $videoModel->description = $textareaDescription;
-        $videoModel->video_file_path = $videoFilePath;
-        $videoModel->image_file_path = $imageFilePath;
-        $videoModel->save();
-        return response()->json(['success' => 'アップロードが完了しました。']);
     }
 
     public function destroy($videoId)
