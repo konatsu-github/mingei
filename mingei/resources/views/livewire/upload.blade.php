@@ -58,6 +58,8 @@
                         <div class="bg-yellow-400 h-2.5 rounded-full" x-bind:style="'width:' + progress + '%'"></div>
                     </div>
                 </div>
+                @error('video') <span class="error">{{ $message }}</span> @enderror
+
             </div>
 
             <h2 class="mt-10 text-base font-semibold leading-7 text-gray-900">動画のサムネイル画像をアップロードしてください</h2>
@@ -94,7 +96,7 @@
                         <div class="bg-yellow-400 h-2.5 rounded-full" x-bind:style="'width:' + progress + '%'"></div>
                     </div>
                 </div>
-
+                @error('thumbnail') <span class="error">{{ $message }}</span> @enderror
 
             </div>
         </div>

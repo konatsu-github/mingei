@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth; // Authファサードを使用するため
 use Illuminate\Support\Facades\Storage;
 use App\Models\Usermeta;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class Upload extends Component
 {
@@ -20,12 +22,36 @@ class Upload extends Component
     public $thumbnail;
     public $video;
 
+    public $videoRules = [
+        'video' => 'max:1073741824|mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska,video/x-flv,video/3gpp,video/x-ms-wmv', // 1GB
+    ];
+
+    public $thumbnailRules = [
+        'thumbnail' => 'image|mimes:jpeg,png,gif,bmp,webp|max:1024', // 画像ファイルのバリデーション
+    ];
+
+    public function updatedThumbnail()
+    {
+        $this->validate(
+            $this->thumbnailRules
+        );
+    }
+
+    public function updatedVideo()
+    {
+        $this->validate(
+            $this->videoRules
+        );
+    }
+
     public function resetFields()
     {
         $this->title = '';
         $this->description = '';
         $this->video = null;
         $this->thumbnail = null;
+
+        $this->resetValidation(); // バリデーションメッセージをクリア
     }
 
     public function render()
@@ -33,7 +59,7 @@ class Upload extends Component
         return view('livewire.upload');
     }
 
-    public function save()
+    public function save(Request $request)
     {
         // ログインしているユーザーのIDを取得
         $userId = Auth::id();
@@ -55,9 +81,6 @@ class Upload extends Component
 
         // 成功メッセージなどの処理を行い、リダイレクトするなどの操作を行います
         return redirect()->route('upload')->with('message', '動画がアップロードされました！')->with('messageType', 'success');
-
-        // // フォームに動画が選択されていない場合はエラーメッセージを表示するなどの処理を行います
-        // return redirect()->back()->withErrors('動画が選択されていません。')->with('message', '動画が選択されていません。')->with('messageType', 'error');
     }
 
     // 画像をリサイズしてS3に保存するメソッド
