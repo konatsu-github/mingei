@@ -13,7 +13,7 @@
             <p class="text-lg font-normal text-gray-500"><a href="{{ route('watch', ['videoId' => intval($id)]) }}">{{ $description }}</a></p>
             <a href="{{ $profileLink }}" class="flex items-center space-x-4 pt-3">
                 <img class="h-8 w-8 rounded-full" src="{{ $profileImage }}" alt="">
-                <div class="font-medium dark:text-white">
+                <div class="font-medium">
                     <div>{{ $name }}</div>
                     @if ($combiName)
                     <div class="text-sm text-gray-500 dark:text-gray-400">{{ $combiName }}</div>

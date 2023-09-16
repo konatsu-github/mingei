@@ -53,7 +53,7 @@
 
         @auth
         @if(auth()->check() && auth()->user()->id == $profileUser -> id)
-        <div x-data="{ isOpen: false }" id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+        <div x-data="{ isOpen: false }" id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900" data-inactive-classes="text-gray-500 dark:text-gray-400">
             <div id="accordion-flush-heading-1">
                 <button x-on:click="isOpen = !isOpen" type="button" :class="{ 'text-gray-900': isOpen }" class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
                     <span>フォロー中のユーザー</span>
@@ -69,7 +69,7 @@
                         <li class="mb-4">
                             <a href="{{ route('profile.show', ['id' => $followedUser['user']->id]) }}" class="flex items-center space-x-4 pt-3">
                                 <img class="h-8 w-8 rounded-full" src="{!! $followedUser['avatarUrl']; !!}" alt="">
-                                <div class="font-medium dark:text-white">
+                                <div class="font-medium">
                                     @if ($followedUser['usermeta']['pinname'])
                                     <div>{{ $followedUser['usermeta']['pinname'] }}</div>
                                     @else

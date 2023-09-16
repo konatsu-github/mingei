@@ -20,7 +20,7 @@
             <div>
                 <a href="{{ route('profile.show', ['id' => $video->user_id]) }}" class="flex mt-6 items-center space-x-4">
                     <img class="h-8 w-8 rounded-full" src="{!! $videoAvatarUrl !!}" alt="">
-                    <div class="font-medium dark:text-white">
+                    <div class="font-medium">
                         <div>{{ $usermeta->pinname ?: $usermeta->nickname }}</div>
                         <div class="text-sm text-gray-500 dark:text-gray-400">{{ $usermeta->combiname }}</div>
                     </div>
