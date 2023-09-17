@@ -47,13 +47,13 @@
                         <div x-show="showShareButton" class="absolute left-0 top-0 mt-8 bg-white border border-gray-300 rounded-lg shadow-lg flex">
                             <!-- 共有ボタンの内容をここに配置 -->
                             <a href="https://twitter.com/share?url={{ route('watch', ['videoId' => intval($video->id)]) }}" rel="nofollow noopener" target="_blank" class="p-2 text-gray-600 hover:bg-gray-100 w-full text-left">
-                                <svg viewBox="0 0 1800 1800" xmlns="http://www.w3.org/2000/svg" y="0px" width="50" height="50">
+                                <svg viewBox="0 0 1800 1800" xmlns="http://www.w3.org/2000/svg" y="0px" width="35" height="35">
                                     <rect height="100%" width="100%" />
                                     <path d="m1014.2 805.8 446.7-519.3h-105.9l-387.9 450.9-309.8-450.9h-357.3l468.5 681.8-468.5 544.6h105.9l409.6-476.2 327.2 476.2h357.3zm-145 168.5-47.5-67.9-377.7-540.2h162.6l304.8 436 47.5 67.9 396.2 566.7h-162.6z" fill="#fff" />
                                 </svg>
                             </a>
                             <a href="http://line.me/R/msg/text/?{{ route('watch', ['videoId' => intval($video->id)]) }}" rel="nofollow noopener" target="_blank" class="p-2 text-gray-600 hover:bg-gray-100 w-full text-left">
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0,0,256,256">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256">
                                     <g transform="translate(-39.68,-39.68) scale(1.31,1.31)">
                                         <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                                             <g transform="scale(5.33333,5.33333)">
