@@ -8,6 +8,8 @@ use App\Models\Usermeta;
 use App\Models\Video;
 use App\Models\VideoRate;
 use App\Models\VideoSave;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -123,29 +125,28 @@ class ProfileController extends Controller
         }
 
         $saveVideosItems = [];
-        
+
         if (auth()->check()) {
-        // ログインしているユーザーのIDを取得（仮定：Auth::user() を使用）
-        $loggedInUserId = auth()->user()->id;
+            // ログインしているユーザーのIDを取得（仮定：Auth::user() を使用）
+            $loggedInUserId = auth()->user()->id;
 
-        // ユーザーが保存した動画のIDを取得
-        $savedVideoIds = VideoSave::where('user_id', $loggedInUserId)->pluck('video_id');
+            // ユーザーが保存した動画のIDを取得
+            $savedVideoIds = VideoSave::where('user_id', $loggedInUserId)->pluck('video_id');
 
-        // 保存された動画のデータを取得
-        $savedVideos = Video::whereIn('id', $savedVideoIds)->orderBy('created_at', 'desc')->get();
+            // 保存された動画のデータを取得
+            $savedVideos = Video::whereIn('id', $savedVideoIds)->orderBy('created_at', 'desc')->get();
 
-        foreach ($savedVideos as $savedVideo) {
-            $usermeta = Usermeta::where('user_id', $savedVideo->user_id)->first();
-            $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
-            $thumbnailUrl = GetS3TemporaryUrl($savedVideo->image_file_path);
-            $saveVideosItems[] = [
-                'video' => $savedVideo,
-                'usermeta' => $usermeta,
-                'avatarUrl' => $avatarUrl,
-                'thumbnailUrl' => $thumbnailUrl,
-            ];
-        }
-
+            foreach ($savedVideos as $savedVideo) {
+                $usermeta = Usermeta::where('user_id', $savedVideo->user_id)->first();
+                $avatarUrl = GetS3TemporaryUrl($usermeta->avatar);
+                $thumbnailUrl = GetS3TemporaryUrl($savedVideo->image_file_path);
+                $saveVideosItems[] = [
+                    'video' => $savedVideo,
+                    'usermeta' => $usermeta,
+                    'avatarUrl' => $avatarUrl,
+                    'thumbnailUrl' => $thumbnailUrl,
+                ];
+            }
         }
 
         return view('profile', compact('followedUsers', 'profileUser', 'profileAvatarUrl', 'profileUsermeta', 'videoCount', 'totalViewCount', 'goodRatingCount', 'totalFollowersCount', 'videosItems', 'saveVideosItems'));
@@ -191,14 +192,12 @@ class ProfileController extends Controller
             $usermeta = new Usermeta(['user_id' => $user->id]);
         }
 
-
         // 他の入力項目があれば、同様に保存する
         $image = $request->file('image-upload');
 
         // アバター画像の処理
         if ($request->hasFile('image-upload')) {
-            $image = $request->file('image-upload');
-            $imageFilePath = $image->store('avatar/' . $user->id, 's3');
+            $imageFilePath = $this->resizeAndStoreImage($request->file('image-upload'));
             $usermeta->avatar = $imageFilePath;
         }
 
@@ -215,5 +214,28 @@ class ProfileController extends Controller
 
         // リダイレクト先など、適切なレスポンスを返す
         return redirect()->back()->with('message', 'プロフィールが更新されました')->with('messageType', 'success');
+    }
+
+    // 画像をリサイズしてS3に保存するメソッド
+    private function resizeAndStoreImage($image)
+    {
+        $userId = auth()->user()->id;
+
+        $imagePath = $image->store('temp', 'public'); // 一時的にストレージに保存
+
+        // 画像をリサイズ
+        $resizedImage = Image::make(storage_path('app/public/' . $imagePath))
+            ->fit(60, 60)
+            ->encode();
+
+        $resizedImagePath = 'avatar/' . $userId . '/' . uniqid() . '.jpg'; // 一意のファイル名を生成
+
+        // リサイズした画像をS3に保存
+        Storage::disk('s3')->put($resizedImagePath, $resizedImage);
+
+        // 一時ファイルを削除
+        Storage::disk('public')->delete($imagePath);
+
+        return $resizedImagePath;
     }
 }
