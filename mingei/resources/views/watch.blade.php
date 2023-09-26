@@ -30,7 +30,7 @@
             @livewire('rate-video', ['videoId' => $video->id])
 
             <div class="flex mt-6">
-                <div x-data="{ follow : false, keep : false, showShareButton:false }" class="flex flex-wrap">
+                <div x-data="{ follow : false, keep : false, showShareButton:false }" class="flex flex-nowrap overflow-auto">
                     @livewire('follow-button', ['videoUserId' => $video->user_id])
                     @livewire('save-video', ['videoId' => $video->id, 'videoUserId' => $video->user_id])
 

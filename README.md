@@ -27,6 +27,7 @@ php artisan make:seeder TestsTableSeeder
 # マイグレーションファイルの作成
 php artisan make:migration create_tests_table --create=tests
 
+
 # マイグレーション実行
 php artisan migrate
 php artisan migrate:refresh
@@ -47,7 +48,6 @@ php artisan db:seed --class TestsTableSeeder
 
 # コントローラ生成（resource付き）
 php artisan make:controller TestController --resource
-
 
 # --------------------------------------------
 # npm系

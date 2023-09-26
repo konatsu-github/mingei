@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\UnsubscribeController;
 /*
@@ -16,9 +15,6 @@ use App\Http\Controllers\UnsubscribeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-
 
 Route::get('/ranking',   [VideoController::class, 'rankingIndex'])->name('ranking');
 
@@ -37,10 +33,6 @@ Route::delete('/video/{videoId}', [VideoController::class, 'destroy'])->middlewa
 Route::get('/settings', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile.edit');
 Route::post('/settings', [ProfileController::class, 'update'])->middleware(['auth'])->name('profile.update');
 
-Route::get('/notifications', function () {
-    return view('notifications');
-})->middleware(['auth'])->name('notifications');
-
 Route::get('/upload', function () {
     return view('upload');
 })->middleware(['auth'])->name('upload');
@@ -56,8 +48,7 @@ Route::get('/',  [VideoController::class, 'index'])->name('home');
 
 Route::get('/watch/{videoId}', [VideoController::class, 'show'])->name('watch');
 
-// Route::get('/notifications', function () {
-//     return view('notifications');
-// })->middleware(['auth'])->name('notifications');
+Route::get('/notifications', [NotificationController::class, 'index'])->middleware(['auth'])->name('notifications.index');
+
 
 require __DIR__.'/auth.php';
