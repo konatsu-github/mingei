@@ -122,11 +122,11 @@ class VideoController extends Controller
         $usermeta = Usermeta::where('user_id', $video->user_id)->first();
         $videoAvatarUrl = GetS3TemporaryUrl($usermeta->avatar);
 
-        // 関連動画を取得（同じユーザーの動画で最大4件）
+        // 関連動画を取得（同じユーザーの動画で最大8件）
         $relatedVideos = Video::where('user_id', $video->user_id)
             ->where('id', '<>', $video->id) // 自分自身の動画を除外
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(8)
             ->get();
 
         $relatedVideosItems = $this->prepareVideoItems($relatedVideos);

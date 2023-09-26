@@ -82,7 +82,7 @@
 
     <section class="mx-auto max-w-7xl py-6 px-6 lg:px-8">
         <div class="pb-4 border-b border-gray-600">
-            <h3 class="text-xl font-semibold leading-6 text-gray-800">関連動画</h3>
+            <h3 class="text-xl font-semibold leading-6 text-gray-800">この人の他の動画</h3>
         </div>
 
         <div class="relative mx-auto max-w-7xl">
