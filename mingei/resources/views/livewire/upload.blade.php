@@ -22,7 +22,7 @@
 
             </div>
 
-            <h2 class="mt-10 text-base font-semibold leading-7 text-gray-900">あなたのネタ動画をアップロードしてください</h2>
+            <h2 class="mt-10 text-base font-semibold leading-7 text-gray-900">あなたのネタ動画や笑える動画をアップロードしてください</h2>
 
             <div class="col-span-full">
                 @if ($video)
