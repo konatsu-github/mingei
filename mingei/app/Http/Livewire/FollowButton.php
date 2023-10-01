@@ -19,8 +19,8 @@ class FollowButton extends Component
     {
         if (Auth::check()) {
             $this->videoUserId = $videoUserId;
-            $this->videoUserfollowers = Follower::where('follower_id', $videoUserId)->pluck('following_id')->toArray();
-            $this->follows = Follower::where('following_id', auth()->user()->id)->pluck('follower_id')->toArray();
+            $this->videoUserfollowers = Follower::where('following_id', $videoUserId)->pluck('follower_id')->toArray();
+            $this->follows = Follower::where('follower_id', auth()->user()->id)->pluck('following_id')->toArray();
         }
     }
 
@@ -35,21 +35,21 @@ class FollowButton extends Component
 
         if (in_array($this->videoUserId, $this->follows)) {
             // データが存在する場合は削除
-            Follower::where('follower_id', $this->videoUserId)
-                ->where('following_id', $user->id)
+            Follower::where('following_id', $this->videoUserId)
+                ->where('follower_id', $user->id)
                 ->delete();
             
         } else {
             // データが存在しない場合は追加
             Follower::create([
-                'follower_id' => $this->videoUserId,
-                'following_id' => $user->id,
+                'following_id' => $this->videoUserId,
+                'follower_id' => $user->id,
             ]);
             
         }
 
         // フォロー情報更新
-        $this->follows = Follower::where('following_id', auth()->user()->id)->pluck('follower_id')->toArray();
+        $this->follows = Follower::where('follower_id', auth()->user()->id)->pluck('following_id')->toArray();
     }
 
 

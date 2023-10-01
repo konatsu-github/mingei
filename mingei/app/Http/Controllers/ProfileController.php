@@ -39,7 +39,7 @@ class ProfileController extends Controller
     // ユーザーの総フォロワー数を取得するプライベート関数
     private function getTotalFollowersCount($userId)
     {
-        return Follower::where('follower_id', $userId)->count();
+        return Follower::where('following_id', $userId)->count();
     }
 
     // フォローしているユーザーの情報を取得
@@ -47,7 +47,7 @@ class ProfileController extends Controller
     {
         $followedUsers = [];
 
-        $followedUserIds = Follower::where('following_id', $userId)->pluck('follower_id')->toArray();
+        $followedUserIds = Follower::where('follower_id', $userId)->pluck('following_id')->toArray();
 
         if (is_array($followedUserIds)) {
             foreach ($followedUserIds as $followedUserId) {
