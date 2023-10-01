@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Usermeta;
 use App\Models\User;
+use App\Models\Follower;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,62 +18,40 @@ class FollowButton extends Component
     public function mount($videoUserId)
     {
         if (Auth::check()) {
-            $user = auth()->user();
-            $videoUser = User::find($this->videoUserId);
-            // ユーザーメタデータの取得または新規作成
-            $usermeta = Usermeta::where('user_id', $user->id)->first();
-            $videoUsermeta = Usermeta::where('user_id', $videoUser->id)->first();
-
             $this->videoUserId = $videoUserId;
-            $this->videoUserfollowers = $videoUsermeta->followers ? unserialize($videoUsermeta->followers) : [];
-            $this->follows = $usermeta->follows ? unserialize($usermeta->follows) : [];
+            $this->videoUserfollowers = Follower::where('follower_id', $videoUserId)->pluck('following_id')->toArray();
+            $this->follows = Follower::where('following_id', auth()->user()->id)->pluck('follower_id')->toArray();
         }
     }
 
     public function toggleFollow()
     {
-
+        $user = auth()->user();
+        
         // ユーザーがログインしているか確認
         if (!Auth::check()) {
             return Redirect::route('login');
         }
 
-        if (in_array(auth()->user()->id, $this->videoUserfollowers)) {
-            $this->videoUserfollowers = array_diff($this->videoUserfollowers, [auth()->user()->id]);
-        } else {
-            $this->videoUserfollowers[] = auth()->user()->id;
-        }
-
         if (in_array($this->videoUserId, $this->follows)) {
-            $this->follows = array_diff($this->follows, [$this->videoUserId]);
+            // データが存在する場合は削除
+            Follower::where('follower_id', $this->videoUserId)
+                ->where('following_id', $user->id)
+                ->delete();
+            
         } else {
-            $this->follows[] = $this->videoUserId;
+            // データが存在しない場合は追加
+            Follower::create([
+                'follower_id' => $this->videoUserId,
+                'following_id' => $user->id,
+            ]);
+            
         }
 
-        $this->saveFollowData();
+        // フォロー情報更新
+        $this->follows = Follower::where('following_id', auth()->user()->id)->pluck('follower_id')->toArray();
     }
 
-    public function saveFollowData()
-    {
-
-        $user = auth()->user();
-        $videoUser = User::find($this->videoUserId);
-        // ユーザーメタデータの取得または新規作成
-        $usermeta = Usermeta::where('user_id', $user->id)->first();
-        $videoUsermeta = Usermeta::where('user_id', $videoUser->id)->first();
-        if (!$usermeta) {
-            $usermeta = new Usermeta(['user_id' => $user->id]);
-        }
-        if (!$videoUsermeta) {
-            $videoUsermeta = new Usermeta(['user_id' => $videoUsermeta->id]);
-        }
-
-        // usermetaテーブルのカラムをシリアライズして保存
-        $videoUsermeta->followers = serialize($this->videoUserfollowers);
-        $videoUsermeta->save();
-        $usermeta->follows = serialize($this->follows);
-        $usermeta->save();
-    }
 
     public function render()
     {

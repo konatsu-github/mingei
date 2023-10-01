@@ -8,6 +8,7 @@ use App\Models\Usermeta;
 use App\Models\Video;
 use App\Models\VideoRate;
 use App\Models\VideoSave;
+use App\Models\Follower;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,41 +39,28 @@ class ProfileController extends Controller
     // ユーザーの総フォロワー数を取得するプライベート関数
     private function getTotalFollowersCount($userId)
     {
-        $userMeta = UserMeta::where('user_id', $userId)->first();
-
-        if ($userMeta) {
-            $followers = unserialize($userMeta->followers);
-            if (is_array($followers)) {
-                return count($followers);
-            }
-        }
-
-        return 0; // フォロワーが存在しない場合は0を返す
+        return Follower::where('follower_id', $userId)->count();
     }
 
     // フォローしているユーザーの情報を取得
     private function getFollowedUsers($userId)
     {
-        $userMeta = UserMeta::where('user_id', $userId)->first();
         $followedUsers = [];
 
-        if ($userMeta) {
-            // ユーザーがフォローしているユーザーの情報を取得
-            $followedUserIds = unserialize($userMeta->follows);
+        $followedUserIds = Follower::where('following_id', $userId)->pluck('follower_id')->toArray();
 
-            if (is_array($followedUserIds)) {
-                foreach ($followedUserIds as $followedUserId) {
-                    $followedUser = User::find($followedUserId);
-                    if ($followedUser) {
-                        $followedUsermeta = Usermeta::where('user_id', $followedUserId)->first();
-                        $followedUserAvatarUrl = GetS3TemporaryUrl($followedUsermeta->avatar);
+        if (is_array($followedUserIds)) {
+            foreach ($followedUserIds as $followedUserId) {
+                $followedUser = User::find($followedUserId);
+                if ($followedUser) {
+                    $followedUsermeta = Usermeta::where('user_id', $followedUserId)->first();
+                    $followedUserAvatarUrl = GetS3TemporaryUrl($followedUsermeta->avatar);
 
-                        $followedUsers[] = [
-                            'user' => $followedUser,
-                            'usermeta' => $followedUsermeta,
-                            'avatarUrl' => $followedUserAvatarUrl,
-                        ];
-                    }
+                    $followedUsers[] = [
+                        'user' => $followedUser,
+                        'usermeta' => $followedUsermeta,
+                        'avatarUrl' => $followedUserAvatarUrl,
+                    ];
                 }
             }
         }

@@ -34,7 +34,7 @@ php artisan migrate:refresh
 
 # modelファイルの作成（テーブル名を単数形で）
 php artisan make:model Test
-php artisan make:model Usermetas
+php artisan make:model Usermeta
 
 # シーダー実行
 php artisan db:seed

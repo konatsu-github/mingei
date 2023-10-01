@@ -20,8 +20,6 @@ class CreateUsermetasTable extends Migration
             $table->string('nickname')->default('名無しさん');
             $table->string('pinname')->nullable()->default(null);
             $table->string('combiname')->nullable()->default(null);
-            $table->text('followers')->nullable()->default(null);
-            $table->text('follows')->nullable()->default(null);
             $table->text('save_videos')->nullable()->default(null);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

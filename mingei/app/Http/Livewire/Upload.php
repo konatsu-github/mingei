@@ -79,6 +79,8 @@ class Upload extends Component
         $videoModel->image_file_path = $imageFilePath;
         $videoModel->save();
 
+        
+
         // 成功メッセージなどの処理を行い、リダイレクトするなどの操作を行います
         return redirect()->route('upload')->with('message', '動画がアップロードされました！')->with('messageType', 'success');
     }
