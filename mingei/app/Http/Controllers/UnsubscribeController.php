@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Usermeta;
 use App\Models\Video;
+use App\Models\Follower;
 
 class UnsubscribeController extends Controller
 {
@@ -38,6 +39,18 @@ class UnsubscribeController extends Controller
             }
 
             $video->delete();
+        }
+
+        // フォロワーデータの削除
+        $follows = Follower::where('following_id', $user->id)->get();
+        foreach ($follows as $follow) {
+            $follow->delete();
+        }
+
+        $followers = Follower::where('follower_id', $user->id)->get();
+
+        foreach ($followers as $follower) {
+            $follower->delete();
         }
 
         // ユーザーの削除
