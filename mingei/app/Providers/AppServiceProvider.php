@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         require_once app_path('Helpers/NumberHelper.php');
+        require_once app_path('Helpers/GetDisplayName.php');
         require_once app_path('Helpers/GetS3TemporaryUrl.php');
         require_once app_path('Helpers/CreateNotification.php');
         require_once app_path('Helpers/GetUnreadNotificationCount.php');

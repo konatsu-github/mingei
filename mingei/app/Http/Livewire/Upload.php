@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Video; // Videoモデルを使用するためにインポート
+use App\Models\Follower;
 use Illuminate\Support\Facades\Auth; // Authファサードを使用するためにインポート
 use Illuminate\Support\Facades\Storage;
 use App\Models\Usermeta;
@@ -79,7 +80,21 @@ class Upload extends Component
         $videoModel->image_file_path = $imageFilePath;
         $videoModel->save();
 
-        
+        // 保存したデータのIDを取得
+        $videoId = $videoModel->id;
+
+        // フォロワーのユーザーIDを取得
+        $followerIds = Follower::where('following_id', $userId)->pluck('follower_id')->toArray();
+
+        // 通知を作成し、フォロワーに送信
+        foreach ($followerIds as $followerId) {
+            $profilePageUrl = route('profile.show', ['id' => $userId]);
+            $profileName = GetDisplayName();
+            $videoUrl = route('watch', ['videoId' => $videoId]);
+            $notificationData = "<a href='{$profilePageUrl}' class='text-orange-400 font-bold'>{$profileName}さん</a>が<a href='{$videoUrl}' class='text-orange-400 font-bold'>新しい動画</a>をアップロードしました";
+
+            CreateNotification($notificationData, $followerId);
+        }
 
         // 成功メッセージなどの処理を行い、リダイレクトするなどの操作を行います
         return redirect()->route('upload')->with('message', '動画がアップロードされました！')->with('messageType', 'success');

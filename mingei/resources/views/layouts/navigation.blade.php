@@ -153,8 +153,7 @@
                     <img class="h-10 w-10 rounded-full" src="{{$avatarUrl}}" alt="">
                 </div>
                 <div class="ml-3">
-                    <div class="text-base font-medium leading-none text-white">{{ Auth::user()->name }}</div>
-                    <div class="text-sm font-medium leading-none text-white">{{ Auth::user()->email }}</div>
+                    <div class="text-base font-medium leading-none text-white">{{ GetDisplayName() }}</div>
                 </div>
                 <a href="{{ route('notifications.index') }}" class="relative ml-auto flex-shrink-0 rounded-full bg-orange-400 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="sr-only">View notifications</span>

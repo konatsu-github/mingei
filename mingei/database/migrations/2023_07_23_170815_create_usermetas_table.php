@@ -17,7 +17,7 @@ class CreateUsermetasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('avatar')->default('avatar/default_avatar.png');
-            $table->string('nickname')->default('名無しさん');
+            $table->string('nickname')->default('名無し');
             $table->string('pinname')->nullable()->default(null);
             $table->string('combiname')->nullable()->default(null);
             $table->text('save_videos')->nullable()->default(null);
