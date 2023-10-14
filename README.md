@@ -75,3 +75,6 @@ php artisan make:livewire test
         
 # 本番環境では下記ディレクトリの21行目// abort_unless(request()->hasValidSignature(), 401);を解除する必要あり
 D:\project\MINGEI\app\mingei\vendor\livewire\livewire\src\Controllers\FileUploadHandler.php
+
+# wslでsystem errorが発生したとき
+sudo chmod -R 777 ./

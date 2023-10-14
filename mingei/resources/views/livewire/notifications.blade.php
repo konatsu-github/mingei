@@ -1,5 +1,5 @@
 <div wire:ignore wire:init="notificationRead" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg pt-1">
         <ul class="space-y-1 text-gray-500 list-inside dark:text-gray-400">
             @foreach ($notifications as $notification)
             <div class="notification">

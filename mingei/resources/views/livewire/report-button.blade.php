@@ -6,7 +6,7 @@
         <span>報告</span>
     </button>
 
-    <div x-show="showModal" class="fixed inset-0 flex items-center justify-center bg-opacity-75 bg-gray-900">
+    <div x-show="showModal" class="z-10 fixed inset-0 flex items-center justify-center bg-opacity-75 bg-gray-900">
         <div x-on:click.away="showModal = false" class="bg-white p-6 rounded-lg">
             <h2 class="text-xl font-semibold mb-4">報告</h2>
             <p>報告の理由を書いてください</p>
