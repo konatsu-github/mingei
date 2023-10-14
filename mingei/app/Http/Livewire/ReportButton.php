@@ -7,6 +7,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Http;
 
 class ReportButton extends Component
 {
@@ -14,12 +15,23 @@ class ReportButton extends Component
     public $reportReason = '';
     public $videoId;
 
-
-    public function sendReport()
+    public function sendReport($recaptchaToken)
     {
         // ユーザーがログインしているか確認
         if (!Auth::check()) {
             return Redirect::route('login');
+        }
+
+        $secret_key = config('services.recaptcha.secret_key');
+        $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secret_key . "&response=" . $recaptchaToken);
+        $reCAPTCHA = json_decode($verifyResponse);
+
+        if (!$reCAPTCHA->success) {
+            // reCAPTCHA 検証エラーが発生した場合の処理
+            // 例: エラーメッセージを表示する
+            return redirect()->route('watch', ['videoId' => intval($this->videoId)])
+                ->with('message', 'ロボットと判定されたため、報告に失敗しました')
+                ->with('messageType', 'error');
         }
 
         // ログインユーザーの名前を取得

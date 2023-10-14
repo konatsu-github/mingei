@@ -11,10 +11,25 @@
             <h2 class="text-xl font-semibold mb-4">報告</h2>
             <p>報告の理由を書いてください</p>
             <textarea wire:model="reportReason" class="w-full p-2 border rounded mb-4"></textarea>
-            <button x-on:click="showModal = false" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded">キャンセル</button>
-            <button wire:click="sendReport" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">報告する</button>
+            <button type="button" x-on:click="showModal = false" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded">キャンセル</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" x-on:click="prepareAndSubmitReport">報告する</button>
         </div>
     </div>
+
+    <script>
+        function prepareAndSubmitReport() {
+            // After your JavaScript logic, manually trigger the Livewire method.
+            // ここに特定のJavaScript処理を書きます
+            grecaptcha.ready(function() {
+                grecaptcha.execute("{{ config('services.recaptcha.site_key') }}", {
+                    action: "submit"
+                }).then(function(token) {
+                    // JavaScript処理が完了したら、sendReport関数を呼び出す
+                    @this.call('sendReport',token);
+                });
+            });
+        }
+    </script>
+
+
 </div>
-
-
