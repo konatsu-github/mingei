@@ -30,35 +30,6 @@ class Upload extends Component
         'thumbnail' => 'required|image|mimes:jpeg,png,gif,bmp,webp|max:104857600', // 100MB画像ファイルのバリデーション
     ];
 
-    // public $titleRules = [
-    //     'title' => 'required|string|max:255',
-    // ];
-    
-    // public $descriptionRules = [
-    //     'description' => 'required|string|max:255',
-    // ];
-
-    // public $videoRules = [
-    //     'video' => 'max:1073741824|mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska,video/x-flv,video/3gpp,video/x-ms-wmv', // 1GB
-    // ];
-
-    // public $thumbnailRules = [
-    //     'thumbnail' => 'image|mimes:jpeg,png,gif,bmp,webp|max:1024', // 画像ファイルのバリデーション
-    // ];
-
-    // public function updatedThumbnail()
-    // {
-    //     $this->validate(
-    //         $this->thumbnailRules
-    //     );
-    // }
-
-    // public function updatedVideo()
-    // {
-    //     $this->validate(
-    //         $this->videoRules
-    //     );
-    // }
 
     public function resetFields()
     {
