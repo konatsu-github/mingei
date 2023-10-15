@@ -164,15 +164,15 @@ class ProfileController extends Controller
         // ログインしているユーザーの情報を取得
         $user = auth()->user();
 
-        // // バリデーションを実行
-        // $request->validate([
-        //     'nickname' => 'string|max:255',
-        //     'pin_name' => 'string|max:255',
-        //     'combi_name' => 'string|max:255',
-        //     // 他の入力項目に必要なバリデーションを追加する場合はここに追加
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|max:255',
-        // ]);
+        // バリデーションを実行
+        $request->validate([
+            'nickname' => 'string|max:255',
+            'pin_name' => 'nullable|string|max:255',
+            'combi_name' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'image-upload' => 'image|max:104857600', // 100MBまで許容
+        ]);
 
         // ユーザーメタデータの取得または新規作成
         $usermeta = Usermeta::where('user_id', $user->id)->first();
