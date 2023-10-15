@@ -1,5 +1,6 @@
 <form wire:submit.prevent="save">
     @csrf
+    <x-alert />
     <div class="space-y-12">
         <div class="border-b border-gray-900/10 pb-12">
             <h2 class="text-base font-semibold leading-7 text-gray-900">基本情報</h2>
@@ -58,7 +59,6 @@
                         <div class="bg-yellow-400 h-2.5 rounded-full" x-bind:style="'width:' + progress + '%'"></div>
                     </div>
                 </div>
-                @error('video') <span class="error">{{ $message }}</span> @enderror
 
             </div>
 
@@ -96,7 +96,6 @@
                         <div class="bg-yellow-400 h-2.5 rounded-full" x-bind:style="'width:' + progress + '%'"></div>
                     </div>
                 </div>
-                @error('thumbnail') <span class="error">{{ $message }}</span> @enderror
 
             </div>
         </div>

@@ -85,8 +85,6 @@ $message = session('message');
 @endif
 
 @if ($errors->any())
-
-
 @foreach ($errors->all() as $error)
 <div x-data="{ showMessage: true }" x-show="showMessage" id="alert-border-2" class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50" role="alert">
     <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

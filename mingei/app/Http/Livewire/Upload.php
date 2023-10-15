@@ -23,27 +23,42 @@ class Upload extends Component
     public $thumbnail;
     public $video;
 
-    public $videoRules = [
-        'video' => 'max:1073741824|mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska,video/x-flv,video/3gpp,video/x-ms-wmv', // 1GB
+    protected $rules = [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string|max:255',
+        'video' => 'required|max:1073741824|mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska,video/x-flv,video/3gpp,video/x-ms-wmv', // 1GB
+        'thumbnail' => 'required|image|mimes:jpeg,png,gif,bmp,webp|max:104857600', // 100MB画像ファイルのバリデーション
     ];
 
-    public $thumbnailRules = [
-        'thumbnail' => 'image|mimes:jpeg,png,gif,bmp,webp|max:1024', // 画像ファイルのバリデーション
-    ];
+    // public $titleRules = [
+    //     'title' => 'required|string|max:255',
+    // ];
+    
+    // public $descriptionRules = [
+    //     'description' => 'required|string|max:255',
+    // ];
 
-    public function updatedThumbnail()
-    {
-        $this->validate(
-            $this->thumbnailRules
-        );
-    }
+    // public $videoRules = [
+    //     'video' => 'max:1073741824|mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska,video/x-flv,video/3gpp,video/x-ms-wmv', // 1GB
+    // ];
 
-    public function updatedVideo()
-    {
-        $this->validate(
-            $this->videoRules
-        );
-    }
+    // public $thumbnailRules = [
+    //     'thumbnail' => 'image|mimes:jpeg,png,gif,bmp,webp|max:1024', // 画像ファイルのバリデーション
+    // ];
+
+    // public function updatedThumbnail()
+    // {
+    //     $this->validate(
+    //         $this->thumbnailRules
+    //     );
+    // }
+
+    // public function updatedVideo()
+    // {
+    //     $this->validate(
+    //         $this->videoRules
+    //     );
+    // }
 
     public function resetFields()
     {
@@ -62,6 +77,8 @@ class Upload extends Component
 
     public function save(Request $request)
     {
+        $this->validate();
+        
         // ログインしているユーザーのIDを取得
         $userId = Auth::id();
 
