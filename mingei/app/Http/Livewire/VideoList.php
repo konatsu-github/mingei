@@ -10,7 +10,7 @@ class VideoList extends Component
 {
     public $videosItems = [];
     public $searchResultsCount = 0;
-    public $perPage = 3;
+    public $perPage = 12;
     public $page = 1;
 
     public $loadMoreButtonVisible = false;

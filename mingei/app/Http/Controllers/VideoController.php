@@ -69,10 +69,10 @@ class VideoController extends Controller
     public function rankingIndex()
     {
         // View countの多い順に動画データを取得（初めの6件のみ）
-        $viewVideos = Video::orderBy('view_count', 'desc')->take(6)->get();
+        $viewVideos = Video::orderBy('view_count', 'desc')->take(9)->get();
 
         // "good"の多い順に動画データを取得（初めの6件のみ）
-        $rateVideos = $this->getTopRatedVideos()->take(6);
+        $rateVideos = $this->getTopRatedVideos()->take(9);
 
         $viewVideosItems = $this->prepareVideoItems($viewVideos);
         $rateVideosItems = $this->prepareVideoItems($rateVideos);
