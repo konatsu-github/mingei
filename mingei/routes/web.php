@@ -26,6 +26,19 @@ Route::get('/history', function () {
     return view('history');
 })->name('history');
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
+
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 // 動画削除のルーティング
 Route::delete('/video/{videoId}', [VideoController::class, 'destroy'])->middleware(['auth'])->name('video.destroy');

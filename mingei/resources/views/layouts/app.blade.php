@@ -55,20 +55,20 @@
 
     <footer class="bg-white rounded-lg shadow dark:bg-gray-800">
         <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 みんなの芸人動画™. All Rights Reserved.
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 みんなのげいにんどうが™. All Rights Reserved.
             </span>
             <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">みんなの芸人動画について</a>
+                    <a href="{{route('about')}}" class="mr-4 hover:underline md:mr-6 ">みんなのげいにんどうがについて</a>
                 </li>
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">プライバシーポリシー</a>
+                    <a href="{{route('privacy')}}" class="mr-4 hover:underline md:mr-6">プライバシーポリシー</a>
                 </li>
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">利用規約</a>
+                    <a href="{{route('terms')}}" class="mr-4 hover:underline md:mr-6">利用規約</a>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline">お問合せ</a>
+                    <a href="https://twitter.com/yurii_geinin" target="_blank" rel="noopener" class="hover:underline">X（旧Twitter）</a>
                 </li>
             </ul>
         </div>
