@@ -185,6 +185,10 @@ class ProfileController extends Controller
 
         // アバター画像の処理
         if ($request->hasFile('image-upload')) {
+            // 古いアバター画像をS3から削除
+            if ($usermeta->avatar) {
+                Storage::disk('s3')->delete($usermeta->avatar);
+            }
             $imageFilePath = $this->resizeAndStoreImage($request->file('image-upload'));
             $usermeta->avatar = $imageFilePath;
         }
