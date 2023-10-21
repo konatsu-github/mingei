@@ -78,3 +78,6 @@ D:\project\MINGEI\app\mingei\vendor\livewire\livewire\src\Controllers\FileUpload
 
 # wslでsystem errorが発生したとき
 sudo chmod -R 777 ./
+
+# テスト実行
+php artisan test
