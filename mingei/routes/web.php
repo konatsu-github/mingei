@@ -42,6 +42,10 @@ Route::get('/terms', function () {
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 // 動画削除のルーティング
 Route::delete('/video/{videoId}', [VideoController::class, 'destroy'])->middleware(['auth'])->name('video.destroy');
+// 動画編集画面のルーティング
+Route::get('/video/{videoId}/edit', [VideoController::class, 'edit'])->name('video.edit');
+// 動画編集のルーティング
+Route::put('/video/{videoId}', [VideoController::class, 'update'])->name('video.update');
 
 Route::get('/settings', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile.edit');
 Route::post('/settings', [ProfileController::class, 'update'])->middleware(['auth'])->name('profile.update');

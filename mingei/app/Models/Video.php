@@ -9,6 +9,8 @@ class Video extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'description'];
+
     // Video モデル内に videoRates リレーションを定義する
     public function videoRates()
     {

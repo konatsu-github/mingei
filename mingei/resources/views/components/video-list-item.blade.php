@@ -21,10 +21,13 @@
                 </div>
             </a>
             @if (isset($userId) && $userId == Auth::id())
+            <div>
+                <a href="{{ route('video.edit', ['videoId' => $id]) }}" class="block mt-6 w-full text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">動画を編集する</a>
+            </div>
             <form onsubmit="return formConfirm()" action="{{ route('video.destroy', ['videoId' => $id]) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="mt-6 w-full text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">動画を削除する</button>
+                <button type="submit" class="mt-6 w-full text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">動画を削除する</button>
             </form>
             <script>
                 function formConfirm() {

@@ -149,6 +149,47 @@ class VideoController extends Controller
         return view('watch', compact('video', 'usermeta', 'videoAvatarUrl', 'videoUrl', 'relatedVideosItems'));
     }
 
+    public function edit($videoId)
+    {
+        // 動画データを取得
+        $video = Video::find($videoId);
+
+        if (!$video) {
+            // 動画が存在しない場合は適切な処理を行ってください（例：エラーメッセージの表示など）
+            abort(404); // 404エラーを返す例
+        }
+
+        return view('video-edit', compact('video'));
+    }
+
+    public function update(Request $request, $videoId)
+    {
+
+
+        // 動画データを取得
+        $video = Video::find($videoId);
+
+        if (!$video) {
+            abort(404); // 動画が存在しない場合は適切なエラー処理を行う
+        }
+
+
+        // フォームから送信されたデータを取得
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        // 動画データを更新
+        $video->update([
+            'title' => $data['title'],
+            'description' => $data['description'],
+        ]);
+
+        // 更新が成功した場合、リダイレクトまたはメッセージを表示
+        return redirect()->route('profile.show', ['id' => $video->user_id])->with('message', '動画情報が更新されました！')->with('messageType', 'success');
+    }
+
     public function destroy($videoId)
     {
         // 動画データを取得
